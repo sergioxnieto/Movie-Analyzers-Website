@@ -3,6 +3,7 @@ var fs = require('fs');
 app.listen(3000);
 console.log("App running...");
 function response(req, res) {
+    console.log("Got a request...");
     var file = "";
     if (req.url == "/") {
         file = __dirname + '/index.html';
