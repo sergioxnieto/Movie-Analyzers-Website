@@ -6,21 +6,9 @@
 
     <body>
         <h1>This is the homepage for our movie analysis website</h1>
+        <script src="foop.js"></script>
         <div id="demo">
             <button name="reqs" onclick="loadInfo()">Send Request</button>
         </div>
-        <script>
-            function loadInfo() {
-              var xhttp = new XMLHttpRequest();
-              xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  document.getElementById("demo").innerHTML =
-                  this.responseText;
-                }
-              };
-              xhttp.open("GET", "welcome.txt", true);
-              xhttp.send();
-            }
-            </script>
     </body>
 </html>

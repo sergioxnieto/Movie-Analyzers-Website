@@ -1,4 +1,11 @@
-function update() {
-    document.getElementById("myImage").src = "images/perhaps.png";
-    console.log("Image perhaps.png loaded!")
-}
+function loadInfo() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML =
+        this.responseText;
+      }
+    };
+    xhttp.open("GET", "welcome.txt", true);
+    xhttp.send();
+  }
