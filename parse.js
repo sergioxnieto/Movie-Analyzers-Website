@@ -48,7 +48,7 @@ function searchMovie(movieName) {
         });
         return dataObject;
         });
-        console.log(JSON.stringify(dataObjects, null, 2));
+        // console.log(JSON.stringify(dataObjects, null, 2));
         var result = search(movieName, dataObjects);
         var titles = result.map(function(item){return item.title;});
         //console.log(titles);
