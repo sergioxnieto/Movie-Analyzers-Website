@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-import {retrieveMovie} from '../parse';
+const parser = require('../parse');
 
 
 // Demo File
 router.get('/movie', (req, res, next) => {
-    res.send('This is just a test to see if the network routing works')
+
+    res.send(parser.searchForMovie('shrek'));
 });
 
 module.exports = router;
