@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Movie Analysis</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <!-- jQuery and JS bundle-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    </head>
+  <head>
+    <title>Movie Analysis</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
 
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">WebSiteName</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
-                </ul>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="">Movie Analyzers</a>
+    </nav>
+    <div class="container">
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="input-group">
+            <div class="input-group-btn search-panel">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span id="search_concept">All</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu scrollable-dropdown" role="menu">
+                <li><a href="#">Title</a></li>
+                <li><a href="#">Cast</a></li>
+                <li><a href="#">Year</a></li>
+                <li><a href="#">Genre</a></li>
+                <li><a href="#">Keyword</a></li>
+                <li><a href="#">Language</a></li>
+              </ul>
             </div>
-        </nav>
-        <h1>This is the homepage for our movie analysis website</h1>
-        <script src="foop.js"></script>
-        <div id="demo">
-            <button name="reqs" onclick="loadInfo()">Send Request</button>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+            <input type="text" class="form-control" name="x" id="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
         </div>
-
-    </body>
+      </div>
+    </div>
+    <!-- jQuery and JS bundle-->
+    <script src="javascripts/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </body>
 </html>
