@@ -3,26 +3,38 @@ const movieAnalyzeUrl = 'localhost:3000/';
 const query = 'movie?';
 
 // Select the page elements that will submit the form
-const inputField = document.getElementById('search');
+const inputField = document.getElementById('search').value;
 const submit = document.getElementById('submitMovieQuery');
 const responseField = document.getElementById('responseField');
 
 // Ajax Function
 const getMovie = () => {
-    const movieQuery = inputField.value;
-    const endPoint = `${movieAnalyzeUrl}${query}${movieQuery}`;
-
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            responseField.innerHTML = xhr.response;
+    axios.get('/movies', {
+        params: {
+            title: inputField
         }
-    };
+    })
+    .then((response) => {
+        console.log(response);
+        responseField.innerHTML = response.data;
+    }, (error) => {
+        console.log(error);
+    });
 
-    xhr.open('GET', '/movie');
-    xhr.send();
+    // const movieQuery = inputField.value;
+    // const endPoint = `${movieAnalyzeUrl}${query}${movieQuery}`;
+
+    // const xhr = new XMLHttpRequest();
+    // xhr.responseType = 'json';
+
+    // xhr.onreadystatechange = () => {
+    //     if (xhr.readyState === XMLHttpRequest.DONE) {
+    //         responseField.innerHTML = xhr.response;
+    //     }
+    // };
+
+    // xhr.open('GET', '/movie');
+    // xhr.send();
 }
 
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);

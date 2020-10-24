@@ -26,6 +26,7 @@
       "resolved": "https://registry.npmjs.org/async-limiter/-/async-limiter-1.0.1.tgz",
       "version": "1.0.1"
     },
+    "axios": "^0.21.0",
     "backo2": {
       "integrity": "sha1-MasayLEpNjRj41s+u2n038+6eUc=",
       "resolved": "https://registry.npmjs.org/backo2/-/backo2-1.0.2.tgz",

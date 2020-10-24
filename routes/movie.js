@@ -4,10 +4,10 @@ const parser = require('../parse');
 
 
 // Demo File
-router.get('/movie', (req, res, next) => {
+router.get('/movies', (req, res, next) => {
     console.log('received a request');
-    console.log(req.body)
-    res.send(parser.searchForMovie('shrek'));
+    console.log(req.query.title)
+    res.send(parser.searchForMovie(req.query.title));
 });
 
 module.exports = router;
