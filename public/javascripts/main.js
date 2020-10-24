@@ -3,12 +3,14 @@ const movieAnalyzeUrl = 'localhost:3000/';
 const query = 'movie?';
 
 // Select the page elements that will submit the form
-const inputField = document.getElementById('search').value;
-const submit = document.getElementById('submitMovieQuery');
-const responseField = document.getElementById('responseField');
+
 
 // Ajax Function
 const getMovie = () => {
+    const inputField = document.getElementById('search').value;
+    const submit = document.getElementById('submitMovieQuery');
+    const responseField = document.getElementById('responseField');
+
     axios.get('/movies', {
         params: {
             title: inputField
