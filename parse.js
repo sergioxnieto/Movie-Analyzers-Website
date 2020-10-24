@@ -25,7 +25,11 @@ function search(nameKey, myArray){
     let re = new RegExp(searchArray.join(" "), "i");
     let results = myArray.filter(movie =>
         re.test(movie.title) ||
-        re.test(movie.id)
+        re.test(movie.id) ||
+        re.test(movie.budget) ||
+        re.test(movie.original_language) ||
+        re.test(movie.popularity) ||
+        re.test(movie.runtime)
     );
     return results;
 }
