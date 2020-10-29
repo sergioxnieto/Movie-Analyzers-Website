@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <!-- Pop-up Input Menu Code -->
+    <!-- Pop-up to add movie entry -->
 	<div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -129,7 +129,7 @@
 		</div>
 	  </div>
 	</div>
-	
+	<!-- Popup to remove movie entry -->
 	<div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -140,19 +140,21 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Enter an Id:</label>
-				<textarea class="form-control" id="removeEntry" placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
-			</div>
+              <form id="deleteMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Enter an Id:</label>
+                    <textarea class="form-control" id="removeEntry" name="movie_id" placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
+                </div>
+              </form>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Submit</button>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="removeMovieEntryBtn" form="deleteMovieForm">Submit</button>
 		  </div>
 		</div>
 	  </div>
     </div>
-	
+	<!-- Popup to request movie id to edit -->
 	<div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -175,7 +177,7 @@
 		</div>
 	  </div>
     </div>
-	
+	<!-- Follows up the menu to edit. Fill will content that will be replaced -->
 	<div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -220,7 +222,6 @@
 		</div>
 	  </div>
 	</div>
-    <!-- /Pop-up Input Menu Code -->
 	
     <!-- jQuery and JS bundle-->
     <script src="javascripts/main.js"></script>

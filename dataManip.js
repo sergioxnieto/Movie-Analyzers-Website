@@ -35,6 +35,33 @@ function search(nameKey, myArray){
     return results;
 }
 
+function searchForMovie(movieName) {
+    // console.log(dataObj);
+    var result = search(movieName, dataObj);  
+     // Array of objects that contain movieName
+        var titles = result.map(function(item) {
+            return item.title;
+        }); // Array with the movie names parsed out
+
+        // Array of objects that match the title
+        return result;
+}
+
+function addAMovie(movieObj) {
+    dataObj.push(movieObj);
+}
+
+function removeMovieEntry(movieId) {
+    for(var i = 0; i < dataObj.length; i++) {
+        if (dataObj[i].movie_id === movieId) {
+            var index = i;
+            break;
+        }    
+    }
+
+    dataObj.splice(index, 1);
+}
+
 function loadCsv() {
     var data;
     try {
@@ -61,20 +88,30 @@ function loadCsv() {
     return dataObj;
 }
 
-function searchForMovie(movieName) {
-    // console.log(dataObj);
-    var result = search(movieName, dataObj);  
-     // Array of objects that contain movieName
-        var titles = result.map(function(item) {
-            return item.title;
-        }); // Array with the movie names parsed out
+function loadModifiedCsv() {
+    var data;
+    try {
+        data = fs.readFileSync('./data/data-backup.csv', 'utf8');
+    } catch (error) {
+        console.log('Error:', e.stack);
+    }
+    var dataArray = data.split(/\r?\n/); 
+    var columns = dataArray[0];
+    var columnsNames = parse(columns);
+    var dataLines = dataArray.slice(1);
+    data = dataLines.map(parse);
 
-        // Array of objects that match the title
-        return result;
-}
-
-function addAMovie(movieObj) {
-    dataObj.push(movieObj);
+        // dataObjects is the collection of ALL movies
+    var dataObjects = data.map(function (arr) {
+        var dataObject = {};
+        columnsNames.forEach(function(columnName, i){
+            dataObject[columnName] = arr[i];
+        });
+        return dataObject;
+    });
+    dataObjects.pop();
+    dataObj = dataObjects;     
+    return dataObj;
 }
 
 function reverseParse() {
@@ -96,12 +133,12 @@ function reverseParse() {
     });
     return result;
   }
-  
+
 function backupCsv() {
     var csv = reverseParse();
 
     if (csv == null) return;
-    fs.writeFile('data-backup.csv', csv, (err) => {
+    fs.writeFile('./data/data-backup.csv', csv, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     });
@@ -109,5 +146,7 @@ function backupCsv() {
 
 exports.searchForMovie = searchForMovie;
 exports.loadCsv = loadCsv;
+exports.loadModifiedCsv = loadModifiedCsv;
 exports.addAMovie = addAMovie;
 exports.backupCsv = backupCsv;
+exports.removeMovieEntry = removeMovieEntry;

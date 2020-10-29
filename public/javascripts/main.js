@@ -3,21 +3,30 @@ const getMovie = () => {
     // Grab the user's entry from search box
     const inputField = document.getElementById('search').value;
 
-    axios.get('/movies', {
+    axios.get('/movies/search', {
         params: {
             title: inputField
         }
     })
     .then((response) => {
         console.log(response);
-        generateTable(response);
+        renderResults(response);
     }, (error) => {
         console.log(error);
     });
 }
 
-const loadDataset = () => {
-    axios.get('/load', {})
+const loadOriginalDataset = () => {
+    axios.get('/movies/load-original-data', {})
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(error);
+    });
+}
+
+const loadModifiedDataset = () => {
+    axios.get('/movies/load-modified-data', {})
     .then((response) => {
         console.log(response);
     }, (error) => {
@@ -26,7 +35,7 @@ const loadDataset = () => {
 }
 
 const saveDataset = () => {
-    axios.get('/backup', {})
+    axios.get('/movies/backup-data', {})
     .then((response) => {
         console.log(response);
     }, (error) => {
@@ -37,7 +46,7 @@ const saveDataset = () => {
 const addNewMovie = () => {
     const btn = document.getElementById('submitNewMovieForm');
 
-    axios.post('/addMovie', {
+    axios.post('/movies/add-movie', {
         title: btn.form.title.value,
         id: btn.form.id.value,
         runtime: btn.form.runtime.value,
@@ -52,7 +61,23 @@ const addNewMovie = () => {
     });
 }
 
-const generateTable = (movieResults) => {
+const deleteMovieEntry = () => {
+    const btn = document.getElementById('removeMovieEntryBtn');
+
+    axios.delete('/movies/remove-movie', {
+        data: {
+            movie_id: btn.form.movie_id.value
+        }
+        
+    })
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(response);
+    });
+}
+
+const renderResults = (movieResults) => {
     const responseField = document.getElementById('responseField');
 
     var table = document.createElement("table");
@@ -88,5 +113,7 @@ const generateTable = (movieResults) => {
 
 document.getElementById('submitNewMovieForm').addEventListener('click', addNewMovie, true);
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);
-document.getElementById('loadButton').addEventListener('click', loadDataset, true);
+document.getElementById('loadButton').addEventListener('click', loadOriginalDataset, true);
+document.getElementById('loadModifiedButton').addEventListener('click', loadModifiedDataset, true);
 document.getElementById('saveButton').addEventListener('click', saveDataset, true);
+document.getElementById('removeMovieEntryBtn').addEventListener('click', deleteMovieEntry, true);

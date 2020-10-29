@@ -1,39 +1,47 @@
 const express = require('express');
 const router = express.Router();
-const parser = require('../parse');
+const dataBase = require('../dataManip');
 
-router.get('/movies', (req, res, next) => {
-    console.log('Received a request to search for a movie...');
+router.get('/search', (req, res, next) => {
+    console.log('Request: search for movie ');
     console.log('Movie title: ' + req.query.title);
-    res.send(parser.searchForMovie(req.query.title));
-    console.log('Request fulfilled\n');
+    res.send(dataBase.searchForMovie(req.query.title));
+    console.log('Done: search completed\n');
 });
 
-router.get('/load', (req, res, next) => {
-    console.log('Received a request to load original CSV');
-    parser.loadCsv();
-    res.send('Original CSV loaded');
-    console.log('Original CSV loaded\n');
+router.get('/load-original-data', (req, res, next) => {
+    console.log('Request: load unmodified data');
+    dataBase.loadCsv();
+    res.send('Response: unmodified data loaded');
+    console.log('Done: unmodified data loaded\n');
 });
 
-router.get('/backup', (req, res, next) => {
-    console.log('Received a request to save current data state');
-    parser.backupCsv();
-    res.send('CSV saved');
-    console.log('Current state saved\n');
+router.get('/load-modified-data', (req, res, next) => {
+    console.log('Request: load modified data');
+    dataBase.loadModifiedCsv();
+    res.send('Response: modified data loaded');
+    console.log('Done: modified data loaded\n');
 });
 
-// router.get('/remove', (req, res, next) => {
-//     console.log('received a save request');
-//     parser.backupCsv();
-//     res.send('CSV saved');
-// });
+router.get('/backup-data', (req, res, next) => {
+    console.log('Request: save current state of data');
+    dataBase.backupCsv();
+    res.send('Response: saved modifications');
+    console.log('Done: saved modifications to backup CSV\n');
+});
 
-router.post('/addMovie',(req, res, next) => {
-    console.log('Received a POST request for new movie entry');
-    parser.addAMovie(req.body);
+router.delete('/remove-movie', (req, res, next) => {
+    console.log('Request: delete movie with ID ' + req.body.movie_id);
+    dataBase.removeMovieEntry(req.body.movie_id);
+    res.send('Response: entry deleted');
+    console.log('Done: entry ' + req.body.movie_id + ' removed!');
+});
+
+router.post('/add-movie',(req, res, next) => {
+    console.log('Request: create a new movie entry');
+    dataBase.addAMovie(req.body);
     res.json({success: true}); // Homepage knows when the process is done
-    console.log('Added movie to the database\n');
+    console.log('Done: movie entry created and added to database\n');
 });
 
 module.exports = router;
