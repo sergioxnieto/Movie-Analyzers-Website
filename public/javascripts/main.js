@@ -25,6 +25,24 @@ const loadDataset = () => {
     });
 }
 
+const addNewMovie = () => {
+    const btn = document.getElementById('submitNewMovieForm');
+
+    axios.post('/test', {
+        title: btn.form.title.value,
+        id: btn.form.id.value,
+        runtime: btn.form.runtime.value,
+        budget: btn.form.budget.value,
+        original_language: btn.form.original_language.value,
+        popularity: btn.form.popularity.value
+    })
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(error);
+    });
+}
+
 const generateTable = (movieResults) => {
     const responseField = document.getElementById('responseField');
 
@@ -59,5 +77,6 @@ const generateTable = (movieResults) => {
     divContainer.appendChild(table);
 }
 
+document.getElementById('submitNewMovieForm').addEventListener('click', addNewMovie, true);
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);
 document.getElementById('loadButton').addEventListener('click', loadDataset, true);

@@ -85,34 +85,36 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Title:</label>
-				<textarea class="form-control" id="addTitle" placeholder="Title here" value=""></textarea>
-			</div>
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Id:</label>
-				<textarea class="form-control" id="addId" placeholder="Id here" value=""></textarea>
-			</div>
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Runtime:</label>
-				<textarea class="form-control" id="addRuntime" placeholder="Runtime here" value=""></textarea>
-			</div>
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Budget:</label>
-				<textarea class="form-control" id="addBudget" placeholder="Budget here" value=""></textarea>
-			</div>
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Language:</label>
-				<textarea class="form-control" id="addLanguage" placeholder="Language here" value=""></textarea>
-			</div>
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Popularity:</label>
-				<textarea class="form-control" id="addPopularity" placeholder="Popularity here" value=""></textarea>
-			</div>
+              <form id="newMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Title:</label>
+                    <textarea class="form-control" id="newMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Id:</label>
+                    <textarea class="form-control" id="newMovieId" name="id" placeholder="Id here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Runtime:</label>
+                    <textarea class="form-control" id="newMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Budget:</label>
+                    <textarea class="form-control" id="newMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Language:</label>
+                    <textarea class="form-control" id="newMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Popularity:</label>
+                    <textarea class="form-control" id="newMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
+                </div>
+              </form>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Submit</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="newMovieForm" id="submitNewMovieForm">Submit</button>
 		  </div>
 		</div>
 	  </div>

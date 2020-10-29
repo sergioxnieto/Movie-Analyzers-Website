@@ -16,4 +16,11 @@ router.get('/load', (req, res, next) => {
     console.log('Original CSV loaded\n');
 });
 
+router.post('/test', (req, res, next) => {
+    console.log('Received a POST request for new movie entry');
+    parser.addAMovie(req.body);
+    res.json({success: true}); // Homepage knows when the process is done
+    console.log('Added movie to the database\n');
+});
+
 module.exports = router;

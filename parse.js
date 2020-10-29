@@ -1,5 +1,5 @@
 const fs = require('fs');
-var dataObj = '';
+var dataObj = [];
 
 function parse(row){
     var insideQuote = false,                                             
@@ -72,5 +72,10 @@ function searchForMovie(movieName) {
         return result;
 }
 
+function addAMovie(movieObj) {
+    dataObj.push(movieObj);
+}
+
 exports.searchForMovie = searchForMovie;
 exports.loadCsv = loadCsv;
+exports.addAMovie = addAMovie;

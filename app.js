@@ -13,6 +13,8 @@ const movieRouter = require('./routes/movie');
 // in the directory which has the scripts, stylesheet, and html
 app.use(express.static('public'));
 
+app.use(express.json());
+
 // Insert the routes which the API will be able to handle
 app.use('/test', indexRouter);    // Demo route
 app.use('/', movieRouter);
