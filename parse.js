@@ -1,23 +1,24 @@
 const fs = require('fs');
+var dataObj = '';
 
 function parse(row){
-  var insideQuote = false,                                             
-      entries = [],                                                    
-      entry = [];
-  row.split('').forEach(function (character) {                         
-    if(character === '"') {
-      insideQuote = !insideQuote;                                      
-    } else {
-      if(character == "," && !insideQuote) {                           
-        entries.push(entry.join(''));                                  
-        entry = [];                                                    
+    var insideQuote = false,                                             
+        entries = [],                                                    
+        entry = [];
+    row.split('').forEach(function (character) {                         
+      if(character === '"') {
+        insideQuote = !insideQuote;                                      
       } else {
-        entry.push(character);                                         
-      }                                                                
-    }                                                                  
-  });
-  entries.push(entry.join(''));                                        
-  return entries;                                                      
+        if(character == "," && !insideQuote) {                           
+          entries.push(entry.join(''));                                  
+          entry = [];                                                    
+        } else {
+          entry.push(character);                                         
+        }                                                                
+      }                                                                  
+    });
+    entries.push(entry.join(''));                                        
+    return entries;                                                      
 }
 
 function search(nameKey, myArray){
@@ -34,30 +35,35 @@ function search(nameKey, myArray){
     return results;
 }
 
-function searchForMovie(movieName) {
-    var data; 
+function loadCsv() {
+    var data;
     try {
         data = fs.readFileSync('./data/movies.csv', 'utf8');
     } catch (error) {
         console.log('Error:', e.stack);
     }
-
     var dataArray = data.split(/\r?\n/); 
-        var columns = dataArray[0];
-        var columnsNames = parse(columns);
-        var dataLines = dataArray.slice(1);
-        data = dataLines.map(parse);
+    var columns = dataArray[0];
+    var columnsNames = parse(columns);
+    var dataLines = dataArray.slice(1);
+    data = dataLines.map(parse);
 
         // dataObjects is the collection of ALL movies
-        var dataObjects = data.map(function (arr) {
-            var dataObject = {};
-            columnsNames.forEach(function(columnName, i){
-                dataObject[columnName] = arr[i];
-            });
-            return dataObject;
+    var dataObjects = data.map(function (arr) {
+        var dataObject = {};
+        columnsNames.forEach(function(columnName, i){
+            dataObject[columnName] = arr[i];
         });
-        
-        var result = search(movieName, dataObjects); // Array of objects that contain movieName
+        return dataObject;
+    });
+    dataObj = dataObjects;     
+    return dataObj;
+}
+
+function searchForMovie(movieName) {
+    // console.log(dataObj);
+    var result = search(movieName, dataObj);  
+     // Array of objects that contain movieName
         var titles = result.map(function(item) {
             return item.title;
         }); // Array with the movie names parsed out
@@ -66,35 +72,5 @@ function searchForMovie(movieName) {
         return result;
 }
 
-
-module.exports = { searchForMovie }
-// .readFile method was asynch so it was hard to get variables
-// function searchForMovie(movieName) {
-//     fs.readFile('./data/movies.csv', 'utf8', function (err, data) {
-//         if (err) {
-//             throw err;
-//         }
-//         var dataArray = data.split(/\r?\n/); 
-//         var columns = dataArray[0];
-//         var columnsNames = parse(columns);
-//         var dataLines = dataArray.slice(1);
-//         data = dataLines.map(parse);
-
-//         // dataObjects is the collection of ALL movies
-//         var dataObjects = data.map(function (arr) {
-//             var dataObject = {};
-//             columnsNames.forEach(function(columnName, i){
-//                 dataObject[columnName] = arr[i];
-//             });
-//             return dataObject;
-//         });
-        
-//         var result = search(movieName, dataObjects); // Array of objects that contain movieName
-//         var titles = result.map(function(item) {
-//             return item.title;
-//         }); // Array with the movie names parsed out
-
-//         //console.log(JSON.stringify(dataObjects, null, 2));
-//         //console.log(JSON.stringify(search(movieName, dataObjects), null, 2));
-//     });
-// }
+exports.searchForMovie = searchForMovie;
+exports.loadCsv = loadCsv;
