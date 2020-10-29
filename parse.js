@@ -63,7 +63,7 @@ function searchForMovie(movieName) {
         }); // Array with the movie names parsed out
 
         // Array of objects that match the title
-        return titles;
+        return result;
 }
 
 

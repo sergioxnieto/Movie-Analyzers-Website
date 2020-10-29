@@ -1,10 +1,3 @@
-// Information to reach website
-const movieAnalyzeUrl = 'localhost:3000/';
-const query = 'movie?';
-
-// Select the page elements that will submit the form
-
-
 // Ajax Function
 const getMovie = () => {
     const inputField = document.getElementById('search').value;
@@ -18,44 +11,41 @@ const getMovie = () => {
     })
     .then((response) => {
         console.log(response);
-        responseField.innerHTML = response.data;
+
+        // Can probably make this it's own function outside of this call
+        var table = document.createElement("table");
+        table.className = "table table-hover table-dark";
+        var tr = table.insertRow(-1);
+        var headers = ["Search Results:", "Movie ID:"]; 
+
+        // Add headers
+        for (var i = 0; i < headers.length; i++) {
+            var th = document.createElement("th");
+            th.innerHTML = headers[i];
+            tr.appendChild(th);
+        }
+
+        // Add json data
+        for (var i = 0; i < response.data.length; i++) {
+            tr = table.insertRow(-1);
+            for (var j = 0; j < headers.length; j++) {
+                var tableCell = tr.insertCell(-1);
+                if (j === 0) {
+                    tableCell.innerHTML = response.data[i].title;
+                } else {
+                    tableCell.innerHTML = response.data[i].id;
+                }
+            }
+        }
+
+        // Add it to a div
+        var divContainer = document.getElementById('responseField');
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+
     }, (error) => {
         console.log(error);
     });
-
-    // const movieQuery = inputField.value;
-    // const endPoint = `${movieAnalyzeUrl}${query}${movieQuery}`;
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.responseType = 'json';
-
-    // xhr.onreadystatechange = () => {
-    //     if (xhr.readyState === XMLHttpRequest.DONE) {
-    //         responseField.innerHTML = xhr.response;
-    //     }
-    // };
-
-    // xhr.open('GET', '/movie');
-    // xhr.send();
 }
 
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);
-
-// // Code associated with dropdown menu
-// $(document).ready(function(e){
-//     $('.search-panel .dropdown-menu').find('a').click(function(e) {
-//           e.preventDefault();
-//           var param = $(this).attr("href").replace("#","");
-//           var concept = $(this).text();
-//           $('.search-panel span#search_concept').text(concept);
-//           $('.input-group #search_param').val(param);
-//          });
-//     });
-// var a = document.getElementByTagName('a').item(0);
-// $(a).on('keyup', function(evt){
-// console.log(evt);
-// if(evt.keycode === 13){
-
-// alert('search?');
-// } 
-// }); 
