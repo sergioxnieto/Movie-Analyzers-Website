@@ -52,9 +52,14 @@
       </div>
     </div>
 	<div class="row">
-        <div class="col-xs-2 col-xs-offset-5">
+        <div class="col-xs-1 col-xs-offset-5">
 			<button type="button" class="btn btn-primary" id="addButton" data-toggle="modal" data-target="#addModalCenter">
 				Add a Movie
+			</button>
+		</div>
+		<div class="col-xs-1 ">
+			<button type="button" class="btn btn-primary" id="removeButton" data-toggle="modal" data-target="#removeModalCenter">
+				Remove a Movie
 			</button>
 		</div>
     </div>
@@ -70,8 +75,51 @@
 		  </div>
 		  <div class="modal-body">
 			<div class="form-group">
-				<label for="Entry" class="col-form-label">Entry:</label>
-				<textarea class="form-control" id="addInput" placeholder="Enter as Title, Id, Runtime, Budget, Language, Popularity" value=""></textarea>
+				<label for="Entry" class="col-form-label">Title:</label>
+				<textarea class="form-control" id="addTitle" placeholder="Title here" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Id:</label>
+				<textarea class="form-control" id="addId" placeholder="Id here" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Runtime:</label>
+				<textarea class="form-control" id="addRuntime" placeholder="Runtime here" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Budget:</label>
+				<textarea class="form-control" id="addBudget" placeholder="Budget here" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Language:</label>
+				<textarea class="form-control" id="addLanguage" placeholder="Language here" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Popularity:</label>
+				<textarea class="form-control" id="addPopularity" placeholder="Popularity here" value=""></textarea>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="removeModalLongTitle">Remove a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Enter an Id:</label>
+				<textarea class="form-control" id="removeEntry" placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
 			</div>
 		  </div>
 		  <div class="modal-footer">
