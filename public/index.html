@@ -13,6 +13,23 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="">Movie Analyzers</a>
     </nav>
+	<div class="row">
+		<div class="col-xs-1 col-xs-offset-9">
+			<button type="button" class="btn btn-primary" id="saveButton">
+				Save dataset
+			</button>
+		</div>
+		<div class="col-xs-1">
+			<button type="button" class="btn btn-primary" id="loadButton">
+				Load Original
+			</button>
+		</div>
+		<div class="col-xs-1">
+			<button type="button" class="btn btn-primary" id="loadModifiedButton">
+				Load Modified
+			</button>
+		</div>
+	</div>
     <div class="container">
       <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
@@ -23,10 +40,10 @@
               </button>
               <ul class="dropdown-menu scrollable-dropdown" role="menu">
                 <li><a href="#">Title</a></li>
-                <li><a href="#">Cast</a></li>
-                <li><a href="#">Year</a></li>
-                <li><a href="#">Genre</a></li>
-                <li><a href="#">Keyword</a></li>
+                <li><a href="#">Movie Id</a></li>
+                <li><a href="#">Runtime</a></li>
+                <li><a href="#">Revenue</a></li>
+                <li><a href="#">Popularity</a></li>
                 <li><a href="#">Language</a></li>
               </ul>
             </div>
@@ -40,17 +57,174 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-8 col-xs-offset-2">
-            <div id="responseField">
-            </div>
-          </div>
-        </div>
-        
-
-      </div>
     </div>
+	<div class="row">
+        <div class="col-xs-1 col-xs-offset-4">
+			<button type="button" class="btn btn-primary" id="addButton" data-toggle="modal" data-target="#addModalCenter">
+				Add a Movie
+			</button>
+		</div>
+		<div class="col-xs-1 ">
+			<button type="button" class="btn btn-primary" id="editIDButton" data-toggle="modal" data-target="#editIDModalCenter">
+				Edit a Movie
+			</button>
+		</div>
+		<div class="col-xs-1 ">
+			<button type="button" class="btn btn-primary" id="removeButton" data-toggle="modal" data-target="#removeModalCenter">
+				Remove a Movie
+			</button>
+		</div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div id="responseField">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up to add movie entry -->
+	<div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="addModalLongTitle">Add a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+              <form id="newMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Title:</label>
+                    <textarea class="form-control" id="newMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Id:</label>
+                    <textarea class="form-control" id="newMovieId" name="id" placeholder="Id here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Runtime:</label>
+                    <textarea class="form-control" id="newMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Budget:</label>
+                    <textarea class="form-control" id="newMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Language:</label>
+                    <textarea class="form-control" id="newMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Popularity:</label>
+                    <textarea class="form-control" id="newMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
+                </div>
+              </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="newMovieForm" id="submitNewMovieForm">Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- Popup to remove movie entry -->
+	<div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="removeModalLongTitle">Remove a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+              <form id="deleteMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Enter an Id:</label>
+                    <textarea class="form-control" id="removeEntry" name="movie_id" placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
+                </div>
+              </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="removeMovieEntryBtn" form="deleteMovieForm">Submit</button>
+		  </div>
+		</div>
+	  </div>
+    </div>
+	<!-- Popup to request movie id to edit -->
+	<div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="editIDModalLongTitle">Edit a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+            <form id="movieIdToEdit">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Enter an Id:</label>
+                    <textarea class="form-control" id="editIDEntry" name="id" placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
+                </div>
+            </form>    
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" id="movieIdToEditSubmit" form="movieIdToEdit" data-toggle="modal" data-target="#editDataModalCenter" data-dismiss= "modal">Submit</button>
+		  </div>
+		</div>
+	  </div>
+    </div>
+	<!-- Follows up the menu to edit. Fill will content that will be replaced -->
+	<div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="editDataModalLongTitle">Edit a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+              <form id="editMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Title:</label>
+                    <textarea class="form-control" id="editMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Id:</label>
+                    <textarea class="form-control" id="editMovieId" name="id" placeholder="Id here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Runtime:</label>
+                    <textarea class="form-control" id="editMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Budget:</label>
+                    <textarea class="form-control" id="editMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Language:</label>
+                    <textarea class="form-control" id="editMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Popularity:</label>
+                    <textarea class="form-control" id="editMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
+                </div>
+              </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="editMovieForm" id="submitEditMovieForm">Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
     <!-- jQuery and JS bundle-->
     <script src="javascripts/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
