@@ -44,4 +44,12 @@ router.post('/add-movie',(req, res, next) => {
     console.log('Done: movie entry created and added to database\n');
 });
 
+router.put('/edit-movie',(req, res, next) => {
+    console.log('Request: update a movie entry');
+    dataBase.removeMovieEntry(req.body.id_to_edit);
+    dataBase.addAMovie(req.body);
+    res.json({success: true}); // Homepage knows when the process is done
+    console.log('Done: updated movie entry\n');
+});
+
 module.exports = router;

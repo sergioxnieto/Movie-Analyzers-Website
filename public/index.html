@@ -165,14 +165,16 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<div class="form-group">
-				<label for="Entry" class="col-form-label">Enter an Id:</label>
-				<textarea class="form-control" id="editIDEntry" placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
-			</div>
+            <form id="movieIdToEdit">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Enter an Id:</label>
+                    <textarea class="form-control" id="editIDEntry" name="id" placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
+                </div>
+            </form>    
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" id="editIDSubmit" data-toggle="modal" data-target="#editDataModalCenter" data-dismiss= "modal">Submit</button>
+			<button type="button" class="btn btn-primary" id="movieIdToEditSubmit" form="movieIdToEdit" data-toggle="modal" data-target="#editDataModalCenter" data-dismiss= "modal">Submit</button>
 		  </div>
 		</div>
 	  </div>
@@ -217,7 +219,7 @@
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="newMovieForm" id="submitEditMovieForm">Submit</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="editMovieForm" id="submitEditMovieForm">Submit</button>
 		  </div>
 		</div>
 	  </div>

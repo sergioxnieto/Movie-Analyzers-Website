@@ -77,6 +77,26 @@ const deleteMovieEntry = () => {
     });
 }
 
+const editMovieEntry = () => {
+    const btn1 = document.getElementById('movieIdToEditSubmit');
+    const btn2 = document.getElementById('submitEditMovieForm');
+
+    axios.put('/movies/edit-movie', {
+        id_to_edit: btn1.form.id.value,
+        title: btn2.form.title.value,
+        id: btn2.form.id.value,
+        runtime: btn2.form.runtime.value,
+        budget: btn2.form.budget.value,
+        original_language: btn2.form.original_language.value,
+        popularity: btn2.form.popularity.value
+    })
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(response);
+    });
+}
+
 const renderResults = (movieResults) => {
     const responseField = document.getElementById('responseField');
 
@@ -117,3 +137,4 @@ document.getElementById('loadButton').addEventListener('click', loadOriginalData
 document.getElementById('loadModifiedButton').addEventListener('click', loadModifiedDataset, true);
 document.getElementById('saveButton').addEventListener('click', saveDataset, true);
 document.getElementById('removeMovieEntryBtn').addEventListener('click', deleteMovieEntry, true);
+document.getElementById('submitEditMovieForm').addEventListener('click', editMovieEntry, true);
