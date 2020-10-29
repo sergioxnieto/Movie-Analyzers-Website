@@ -14,14 +14,19 @@
       <a class="navbar-brand" href="">Movie Analyzers</a>
     </nav>
 	<div class="row">
-		<div class="col-xs-1 col-xs-offset-10">
+		<div class="col-xs-1 col-xs-offset-9">
 			<button type="button" class="btn btn-primary" id="saveButton">
 				Save dataset
 			</button>
 		</div>
 		<div class="col-xs-1">
 			<button type="button" class="btn btn-primary" id="loadButton">
-				Load Dataset
+				Load Original
+			</button>
+		</div>
+		<div class="col-xs-1">
+			<button type="button" class="btn btn-primary" id="loadModifiedButton">
+				Load Modified
 			</button>
 		</div>
 	</div>
@@ -54,9 +59,14 @@
       </div>
     </div>
 	<div class="row">
-        <div class="col-xs-1 col-xs-offset-5">
+        <div class="col-xs-1 col-xs-offset-4">
 			<button type="button" class="btn btn-primary" id="addButton" data-toggle="modal" data-target="#addModalCenter">
 				Add a Movie
+			</button>
+		</div>
+		<div class="col-xs-1 ">
+			<button type="button" class="btn btn-primary" id="editIDButton" data-toggle="modal" data-target="#editIDModalCenter">
+				Edit a Movie
 			</button>
 		</div>
 		<div class="col-xs-1 ">
@@ -142,6 +152,74 @@
 		</div>
 	  </div>
     </div>
+	
+	<div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="editIDModalLongTitle">Edit a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<div class="form-group">
+				<label for="Entry" class="col-form-label">Enter an Id:</label>
+				<textarea class="form-control" id="editIDEntry" placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" id="editIDSubmit" data-toggle="modal" data-target="#editDataModalCenter" data-dismiss= "modal">Submit</button>
+		  </div>
+		</div>
+	  </div>
+    </div>
+	
+	<div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="editDataModalLongTitle">Edit a Movie</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+              <form id="editMovieForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Title:</label>
+                    <textarea class="form-control" id="editMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Id:</label>
+                    <textarea class="form-control" id="editMovieId" name="id" placeholder="Id here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Runtime:</label>
+                    <textarea class="form-control" id="editMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Budget:</label>
+                    <textarea class="form-control" id="editMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Language:</label>
+                    <textarea class="form-control" id="editMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Popularity:</label>
+                    <textarea class="form-control" id="editMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
+                </div>
+              </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="newMovieForm" id="submitEditMovieForm">Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
     <!-- /Pop-up Input Menu Code -->
 	
     <!-- jQuery and JS bundle-->
