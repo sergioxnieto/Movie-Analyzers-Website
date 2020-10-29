@@ -16,7 +16,20 @@ router.get('/load', (req, res, next) => {
     console.log('Original CSV loaded\n');
 });
 
-router.post('/test', (req, res, next) => {
+router.get('/backup', (req, res, next) => {
+    console.log('Received a request to save current data state');
+    parser.backupCsv();
+    res.send('CSV saved');
+    console.log('Current state saved\n');
+});
+
+// router.get('/remove', (req, res, next) => {
+//     console.log('received a save request');
+//     parser.backupCsv();
+//     res.send('CSV saved');
+// });
+
+router.post('/addMovie',(req, res, next) => {
     console.log('Received a POST request for new movie entry');
     parser.addAMovie(req.body);
     res.json({success: true}); // Homepage knows when the process is done

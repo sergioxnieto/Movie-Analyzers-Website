@@ -56,6 +56,7 @@ function loadCsv() {
         });
         return dataObject;
     });
+    dataObjects.pop();
     dataObj = dataObjects;     
     return dataObj;
 }
@@ -76,6 +77,37 @@ function addAMovie(movieObj) {
     dataObj.push(movieObj);
 }
 
+function reverseParse() {
+    var result, columns;
+    var insideQuote = false,
+  
+    columns = Object.keys(dataObj[0]);
+    result = '';
+    result += columns.join(',');
+    result += '\n';
+    dataObj.forEach(function(item) {
+      ctr = 0;
+      columns.forEach(function(columns) {
+        if (ctr > 0) result += ',';
+        result += "\"" + item[columns] + "\"";
+        ctr++;
+      });
+      result += '\n';
+    });
+    return result;
+  }
+  
+function backupCsv() {
+    var csv = reverseParse();
+
+    if (csv == null) return;
+    fs.writeFile('data-backup.csv', csv, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+    });
+}
+
 exports.searchForMovie = searchForMovie;
 exports.loadCsv = loadCsv;
 exports.addAMovie = addAMovie;
+exports.backupCsv = backupCsv;

@@ -25,10 +25,19 @@ const loadDataset = () => {
     });
 }
 
+const saveDataset = () => {
+    axios.get('/backup', {})
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(error);
+    });
+}
+
 const addNewMovie = () => {
     const btn = document.getElementById('submitNewMovieForm');
 
-    axios.post('/test', {
+    axios.post('/addMovie', {
         title: btn.form.title.value,
         id: btn.form.id.value,
         runtime: btn.form.runtime.value,
@@ -80,3 +89,4 @@ const generateTable = (movieResults) => {
 document.getElementById('submitNewMovieForm').addEventListener('click', addNewMovie, true);
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);
 document.getElementById('loadButton').addEventListener('click', loadDataset, true);
+document.getElementById('saveButton').addEventListener('click', saveDataset, true);
