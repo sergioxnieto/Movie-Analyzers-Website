@@ -1,5 +1,7 @@
+var plotly = require('./node_modules/plotly')('ymwang0101','6XBXlcsQc81iEbEslo44');
 const fs = require('fs');
 var dataObj = [];
+var newArray = [];
 
 function parse(row){
     var insideQuote = false,                                             
@@ -144,9 +146,72 @@ function backupCsv() {
     });
 }
 
+function returnArray(keyword, myArr){
+    let arr;
+    if(keyword == "budget"){
+        arr = myArr.map(function(item){return item.budget;});
+    } else if (keyword == "vote_average") {
+        arr = myArr.map(function(item){return item.vote_average;});
+    } else if (keyword == "popularity") {
+        arr = myArr.map(function(item){return item.popularity;});
+    } else if (keyword == "runtime") {
+        arr = myArr.map(function(item){return item.runtime;});
+    } else if (keyword == "revenue") {
+        arr = myArr.map(function(item){return item.revenue;});
+    } else if (keyword == "production_companies") {
+        arr = myArr.map(function(item){return item.production_companies;});
+    }
+    return arr;
+}
+
+function makeAnalytics(graphObj){
+
+    xstring = graphObj.xvalue;
+    ystring = graphObj.yvalue;
+
+    newArray = dataObj.filter(movie => movie.budget > 0);
+    newArray = newArray.filter(movie => movie.vote_average > 0);
+    newArray = newArray.filter(movie => movie.popularity > 0);
+    newArray = newArray.filter(movie => movie.runtime > 0);
+    newArray = newArray.filter(movie => movie.revenue > 0);
+
+    xvalue = returnArray(xstring, newArray);
+    yvalue = returnArray(ystring, newArray);  
+
+    var layout = {
+      title: "Movies " + xstring + " vs " + ystring,
+      xaxis: {
+        title: xstring,
+        showline: false,
+        showgrid: false
+      },
+      yaxis: {
+        title: ystring,
+        showline: false,
+        showgrid: false
+      }
+    };
+
+    var trace = {
+        x: xvalue,
+        y: yvalue,
+        mode: "markers",
+        type: "scatter"
+    };
+
+    var data = [trace];
+
+    var graphOptions = {layout: layout, filename: "basic-bar3", fileopt: "overwrite"};
+
+    plotly.plot(data, graphOptions, function (err, msg) {
+        console.log(msg);
+    });
+}
+
 exports.searchForMovie = searchForMovie;
 exports.loadCsv = loadCsv;
 exports.loadModifiedCsv = loadModifiedCsv;
 exports.addAMovie = addAMovie;
 exports.backupCsv = backupCsv;
 exports.removeMovieEntry = removeMovieEntry;
+exports.makeAnalytics = makeAnalytics;

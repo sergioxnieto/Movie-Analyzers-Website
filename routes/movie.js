@@ -52,4 +52,11 @@ router.put('/edit-movie',(req, res, next) => {
     console.log('Done: updated movie entry\n');
 });
 
+router.put('/make-graph',(req, res, next) => {
+    console.log('Request: make a analytic graph');
+    dataBase.makeAnalytics(req.body);
+    res.json({success: true}); // Homepage knows when the process is done
+    console.log('Done: made graph\n');
+});
+
 module.exports = router;

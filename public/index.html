@@ -58,6 +58,7 @@
         </div>
       </div>
     </div>
+	<div class="row"> "  " </div>
 	<div class="row">
         <div class="col-xs-1 col-xs-offset-4">
 			<button type="button" class="btn btn-primary" id="addButton" data-toggle="modal" data-target="#addModalCenter">
@@ -74,7 +75,12 @@
 				Remove a Movie
 			</button>
 		</div>
-    </div>
+		<div class="col-xs-1 ">
+			<button type="button" class="btn btn-primary" id="analyticButton" data-toggle="modal" data-target="#analyticModalCenter">
+				Analytics
+			</button>
+		</div>
+	</div>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
@@ -129,6 +135,7 @@
 		</div>
 	  </div>
 	</div>
+	
 	<!-- Popup to remove movie entry -->
 	<div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -154,6 +161,7 @@
 		</div>
 	  </div>
     </div>
+	
 	<!-- Popup to request movie id to edit -->
 	<div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -179,6 +187,7 @@
 		</div>
 	  </div>
     </div>
+	
 	<!-- Follows up the menu to edit. Fill will content that will be replaced -->
 	<div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -224,6 +233,101 @@
 		</div>
 	  </div>
 	</div>
+	
+	<!-- Pop-up to get analytics -->
+	<div class="modal fade" id="analyticModalCenter" tabindex="-1" role="dialog" aria-labelledby="analyticModal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="analyticModalLongTitle">Analytics</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+              <form id="analyticForm">
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Field 1</label>
+                    <textarea class="form-control" id="analyticField1" name="analyticsField1" placeholder="X axis value here" value=""></textarea>
+                </div>
+				<div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Select a Field
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<button class="dropdown-item" type="button" onclick="budget1()">budget</button>
+					<button class="dropdown-item" type="button" onclick="vote_average1()">vote_average</button>
+					<button class="dropdown-item" type="button" onclick="popularity1()">popularity</button>
+					<button class="dropdown-item" type="button" onclick="runtime1()">runtime</button>
+					<button class="dropdown-item" type="button" onclick="revenue1()">revenue</button>
+					<button class="dropdown-item" type="button" onclick="production_companies1()">production_companies</button>
+				  </div>
+				</div>
+                <div class="form-group">
+                    <label for="Entry" class="col-form-label">Field 2</label>
+                    <textarea class="form-control" id="analyticField2" name="analyticsField2" placeholder="Y axis value here" value=""></textarea>
+                </div>
+				<div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Select a Field
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<button class="dropdown-item" type="button" onclick="budget2()">budget</button>
+					<button class="dropdown-item" type="button" onclick="vote_average2()">vote_average</button>
+					<button class="dropdown-item" type="button" onclick="popularity2()">popularity</button>
+					<button class="dropdown-item" type="button" onclick="runtime2()">runtime</button>
+					<button class="dropdown-item" type="button" onclick="revenue2()">revenue</button>
+					<button class="dropdown-item" type="button" onclick="production_companies2()">production_companies</button>
+				  </div>
+				</div>
+              </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="analyticForm" id="submitAnalytic">Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<script>
+		function budget1() {
+			document.getElementById("analyticField1").value = "budget";
+		}
+		function vote_average1() {
+			document.getElementById("analyticField1").value = "vote_average";
+		}
+		function popularity1() {
+			document.getElementById("analyticField1").value = "popularity";
+		}
+		function runtime1() {
+			document.getElementById("analyticField1").value = "runtime";
+		}
+		function revenue1() {
+			document.getElementById("analyticField1").value = "revenue";
+		}
+		function production_companies1() {
+			document.getElementById("analyticField1").value = "production_companies";
+		}
+		function budget2() {
+			document.getElementById("analyticField2").value = "budget";
+		}
+		function vote_average2() {
+			document.getElementById("analyticField2").value = "vote_average";
+		}
+		function popularity2() {
+			document.getElementById("analyticField2").value = "popularity";
+		}
+		function runtime2() {
+			document.getElementById("analyticField2").value = "runtime";
+		}
+		function revenue2() {
+			document.getElementById("analyticField2").value = "revenue";
+		}
+		function production_companies2() {
+			document.getElementById("analyticField2").value = "production_companies";
+		}
+	</script>
 	
     <!-- jQuery and JS bundle-->
     <script src="javascripts/main.js"></script>
