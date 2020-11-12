@@ -274,6 +274,7 @@
 					<button class="dropdown-item" type="button" onclick="runtime1()">runtime</button>
 					<button class="dropdown-item" type="button" onclick="revenue1()">revenue</button>
 					<button class="dropdown-item" type="button" onclick="production_companies1()">production_companies</button>
+					<button class="dropdown-item" type="button" onclick="genre1()">genres</button>
 				  </div>
 				</div>
                 <div class="form-group">
@@ -290,7 +291,6 @@
 					<button class="dropdown-item" type="button" onclick="popularity2()">popularity</button>
 					<button class="dropdown-item" type="button" onclick="runtime2()">runtime</button>
 					<button class="dropdown-item" type="button" onclick="revenue2()">revenue</button>
-					<button class="dropdown-item" type="button" onclick="production_companies2()">production_companies</button>
 				  </div>
 				</div>
               </form>
@@ -322,6 +322,9 @@
 		function production_companies1() {
 			document.getElementById("analyticField1").value = "production_companies";
 		}
+		function genre1() {
+			document.getElementById("analyticField1").value = "genres";
+		}
 		function budget2() {
 			document.getElementById("analyticField2").value = "budget";
 		}
@@ -336,9 +339,6 @@
 		}
 		function revenue2() {
 			document.getElementById("analyticField2").value = "revenue";
-		}
-		function production_companies2() {
-			document.getElementById("analyticField2").value = "production_companies";
 		}
 	</script>
 	
