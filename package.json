@@ -237,6 +237,7 @@
       "resolved": "https://registry.npmjs.org/parseuri/-/parseuri-0.0.5.tgz",
       "version": "0.0.5"
     },
+    "plotly": "^1.0.6",
     "socket.io": "^2.3.0",
     "socket.io-adapter": {
       "integrity": "sha512-WzZRUj1kUjrTIrUKpZLEzFZ1OLj5FwLlAFQs9kuZJzJi5DKdU7FsWc36SNmA8iDOtwBQyT8FkrriRM8vXLYz8g==",

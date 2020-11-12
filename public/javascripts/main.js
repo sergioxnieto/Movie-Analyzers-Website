@@ -131,6 +131,21 @@ const renderResults = (movieResults) => {
     divContainer.appendChild(table);
 }
 
+const makeGraph = () => {
+    const btn1 = document.getElementById('submitAnalytic');
+
+    axios.put('/movies/make-graph', {
+        xvalue: btn1.form.analyticsField1.value,
+        yvalue: btn1.form.analyticsField2.value
+    })
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(response);
+    });
+}
+
+document.getElementById('submitAnalytic').addEventListener('click', makeGraph, true);
 document.getElementById('submitNewMovieForm').addEventListener('click', addNewMovie, true);
 document.getElementById('submitMovieQuery').addEventListener('click', getMovie, true);
 document.getElementById('loadButton').addEventListener('click', loadOriginalDataset, true);
