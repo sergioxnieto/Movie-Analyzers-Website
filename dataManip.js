@@ -320,7 +320,7 @@ function makeAnalytics(graphObj){
         }
 
         var layout = {
-          title: "Movies genres vs " + ystring,
+          title: "Production companies vs " + ystring,
         };
 
         var data = [traces[0], traces[1], traces[2], traces[3], traces[4], traces[5], traces[6], traces[7], traces[8], traces[9]];
