@@ -2,6 +2,8 @@ var plotly = require('./node_modules/plotly')('ymwang0101','6XBXlcsQc81iEbEslo44
 const fs = require('fs');
 var dataObj = [];
 var newArray = [];
+var prodArray;
+var genreArray;
 
 function parse(row){
     var insideQuote = false,                                             
@@ -14,6 +16,33 @@ function parse(row){
         if(character == "," && !insideQuote) {                           
           entries.push(entry.join(''));                                  
           entry = [];                                                    
+        } else {
+          entry.push(character);                                         
+        }                                                                
+      }                                                                  
+    });
+    entries.push(entry.join(''));                                        
+    return entries;                                                      
+}
+
+function parseBracket(row){
+    var insideBracket = false,
+        skipSpace = false,                                           
+        entries = [],                                                    
+        entry = [];
+    row.split('').forEach(function (character) {                         
+      if(character === '{' || character === '}') {
+        insideBracket = !insideBracket;                                      
+      } else {
+        if(skipSpace) {
+            skipSpace = false;
+            return;
+        }
+
+        if(character == "," && !insideBracket) {                         
+          entries.push(entry.join(''));                                  
+          entry = [];                            
+          skipSpace = true;                        
         } else {
           entry.push(character);                                         
         }                                                                
@@ -73,7 +102,7 @@ function addAMovie(movieObj) {
 
 function removeMovieEntry(movieId) {
     for(var i = 0; i < dataObj.length; i++) {
-        if (dataObj[i].movie_id === movieId) {
+        if (dataObj[i].id === movieId) {
             var index = i;
             break;
         }    
@@ -104,7 +133,32 @@ function loadCsv() {
         return dataObject;
     });
     dataObjects.pop();
-    dataObj = dataObjects;     
+    dataObj = dataObjects;    
+    
+    // Clear the array in case of subsequent attempts
+    newArray = [];
+
+    dataObj.forEach((v, i) => {
+        const val = (typeof v === 'object') ? Object.assign({}, v) : v;
+        newArray.push(val);
+    });
+    
+    newArray = newArray.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
+        && movie.runtime > 0 && movie.revenue > 0);
+
+    for(var i = 0; i < newArray.length; i++) {
+        let result = parseBracket(newArray[i].production_companies.replace(/[\[\]']+|name: |id: /g, ''));
+        newArray[i].production_companies = result;
+    }
+    prodArray = bubbleSort(countRepeat('production_companies', newArray));
+
+    for(var i = 0; i < newArray.length; i++) {
+        let result = parseBracket(newArray[i].genres.replace(/[\[\]']+|name: |id: /g, ''));
+        newArray[i].genres = result;
+    }
+
+    genreArray = bubbleSort(countRepeat('genres', newArray));
+
     return dataObj;
 }
 
@@ -131,6 +185,31 @@ function loadModifiedCsv() {
     });
     dataObjects.pop();
     dataObj = dataObjects;     
+
+    // Clear the array in case of subsequent attempts
+    newArray = [];
+
+    dataObj.forEach((v, i) => {
+        const val = (typeof v === 'object') ? Object.assign({}, v) : v;
+        newArray.push(val);
+    });
+    
+    newArray = newArray.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
+        && movie.runtime > 0 && movie.revenue > 0);
+
+    for(var i = 0; i < newArray.length; i++) {
+        let result = parseBracket(newArray[i].production_companies.replace(/[\[\]']+|name: |id: /g, ''));
+        newArray[i].production_companies = result;
+    }
+    prodArray = bubbleSort(countRepeat('production_companies', newArray));
+
+    for(var i = 0; i < newArray.length; i++) {
+        let result = parseBracket(newArray[i].genres.replace(/[\[\]']+|name: |id: /g, ''));
+        newArray[i].genres = result;
+    }
+
+    genreArray = bubbleSort(countRepeat('genres', newArray));
+    console.log(dataObj[0]);
     return dataObj;
 }
 
@@ -143,7 +222,7 @@ function reverseParse() {
     result += columns.join(',');
     result += '\n';
     dataObj.forEach(function(item) {
-      ctr = 0;
+      var ctr = 0;
       columns.forEach(function(columns) {
         if (ctr > 0) result += ',';
         result += "\"" + item[columns] + "\"";
@@ -169,156 +248,103 @@ function getAvg(totalArr) {
   return total / totalArr.length;
 }
 
+function countRepeat(nameString, myArray) {
+    var countArray = new Array();
+    var tempArray;
+    for(let i = 0; i < myArray.length; i++) {
+        tempArray = myArray[i][nameString];
+        for (let j = 0; j < tempArray.length; j++){
+            if(!countArray.length){
+                var temp = {name: tempArray[j], count: 1};
+                countArray.push(temp);
+            } else {
+                var index = countArray.findIndex((element) => element.name === tempArray[j])
+                if(index > -1) {
+                    countArray[index].count += 1;
+                } else {
+                    if(tempArray[j] == '') {
+                        continue;
+                    }
+                    temp = {name: tempArray[j], count: 1};
+                    countArray.push(temp);
+                }
+            }
+        } 
+    }
+    return countArray;
+}
+
+function swap(items, firstIndex, secondIndex){
+    var temp = items[firstIndex];
+    items[firstIndex] = items[secondIndex];
+    items[secondIndex] = temp;
+}
+
+function bubbleSort(arr){
+    var len = arr.length,
+        i, j, stop, temp1, temp2;
+    for (i = 0; i < len; i++){
+        for (j = 0; j < len - i - 1; j++){
+            temp1 = arr[j].count;
+            temp2 = arr[j+1].count;
+            if (temp1 < temp2){
+                swap(arr, j, j+1);
+            }
+        }
+    }
+
+    return arr;
+}
+
 function makeAnalytics(graphObj){
 
     let xstring = graphObj.xvalue;
     let ystring = graphObj.yvalue;
 
-    newArray = dataObj.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
-        && movie.runtime > 0 && movie.revenue > 0);
-
-    let xvalue = newArray.map(function(item){return item[xstring];});
-    let yvalue = newArray.map(function(item){return item[ystring];});
-
-    var layout = {
-      title: "Movies " + xstring + " vs " + ystring,
-      xaxis: {
-        title: xstring,
-        showline: false,
-        showgrid: false
-      },
-      yaxis: {
-        title: ystring,
-        showline: false,
-        showgrid: false
-      }
-    };
+    var traces = [];
+    var temp;
 
     if (xstring === "production_companies" || ystring === "production_companies") {
 
-        let walt = searchProd("Walt Disney Pictures", newArray);
-        //console.log(walt);
-        let walty = getAvg(walt.map(function(item){return item[ystring];}).map(Number));
-        //console.log(walty);
-        let colu = searchProd("Columbia Pictures", newArray);
-        let coluy = getAvg(colu.map(function(item){return item[ystring];}).map(Number));
-        let lege = searchProd("Legendary Pictures", newArray);
-        let legey = getAvg(lege.map(function(item){return item[ystring];}).map(Number));
-        let warn = searchProd("Warner Bros", newArray);
-        let warny = getAvg(warn.map(function(item){return item[ystring];}).map(Number));
-        let para = searchProd("Paramount Pictures", newArray);
-        let paray = getAvg(para.map(function(item){return item[ystring];}).map(Number));
-        let univ = searchProd("Universal Pictures", newArray);
-        let univy = getAvg(univ.map(function(item){return item[ystring];}).map(Number));
-        let twen = searchProd("Twentieth Century Fox Film", newArray);
-        let tweny = getAvg(twen.map(function(item){return item[ystring];}).map(Number));
-        let sony = searchProd("Sony Pictures", newArray);
-        let sonyy = getAvg(sony.map(function(item){return item[ystring];}).map(Number));
+        let bad = 'Metro-Goldwyn-Mayer';
+        for(let i = 0; i < 10; i++) {
+            console.log(prodArray[i]);
+            if(prodArray[i].name.includes(bad)) {
+                temp = searchProd(prodArray[i].name.split(' ')[0], newArray);
+            } else {
+                temp = searchProd(prodArray[i].name.split(',')[0], newArray);
+            }
+            let temp2 = getAvg(temp.map(function(item){return item[ystring];}).map(Number));
+            console.log(temp2);
+            traces[i] = {x: prodArray[i].name.split(',')[0], y: temp2, name: prodArray[i].name.split(',')[0], type: "bar"};
+        }
 
-        var trace1 = {
-        x: "Walt Disney Pictures",
-        y: walty,
-        type: "bar"
+        var layout = {
+          title: "Production companies vs " + ystring,
         };
-        var trace2 = {
-        x: "Columbia Pictures",
-        y: coluy,
-        type: "bar"
-        };
-        var trace3 = {
-        x: "Legendary Pictures",
-        y: legey,
-        type: "bar"
-        };
-        var trace4 = {
-        x: "Warner Bros",
-        y: warny,
-        type: "bar"
-        };
-        var trace5 = {
-        x: "Paramount Pictures",
-        y: paray,
-        type: "bar"
-        };
-        var trace6 = {
-        x: "Universal Pictures",
-        y: univy,
-        type: "bar"
-        };
-        var trace7 = {
-        x: "Twentieth Century Fox Film",
-        y: tweny,
-        type: "bar"
-        };
-        var trace8 = {
-        x: "Sony Pictures",
-        y: sonyy,
-        type: "bar"
-        };
-        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8];
-        var graphOptions = {filename: "basic-bar3", fileopt: "overwrite"};
+
+        var data = [traces[0], traces[1], traces[2], traces[3], traces[4], traces[5], traces[6], traces[7], traces[8], traces[9]];
+
     } else if (xstring === "genres" || ystring === "genres") {
 
-        let comedy = searchGenres("Comedy", newArray);
-        let comedyy = getAvg(comedy.map(function(item){return item[ystring];}).map(Number));
-        let action = searchGenres("Action", newArray);
-        let actiony = getAvg(action.map(function(item){return item[ystring];}).map(Number));
-        let adventure = searchGenres("Adventure", newArray);
-        let adventurey = getAvg(adventure.map(function(item){return item[ystring];}).map(Number));
-        let drama = searchGenres("Drama", newArray);
-        let dramay = getAvg(drama.map(function(item){return item[ystring];}).map(Number));
-        let fantasy = searchGenres("Fantasy", newArray);
-        let fantasyy = getAvg(fantasy.map(function(item){return item[ystring];}).map(Number));
-        let horror = searchGenres("Horror", newArray);
-        let horrory = getAvg(horror.map(function(item){return item[ystring];}).map(Number));
-        let romance = searchGenres("Romance", newArray);
-        let romancey = getAvg(romance.map(function(item){return item[ystring];}).map(Number));
-        let mystery = searchGenres("Mystery", newArray);
-        let mysteryy = getAvg(mystery.map(function(item){return item[ystring];}).map(Number));
+        for(i = 0; i < 10; i++) {
+            console.log(genreArray[i]);
+            let temp = searchGenres(genreArray[i].name.split(',')[1], newArray);
+            let temp2 = getAvg(temp.map(function(item){return item[ystring];}).map(Number));
+            console.log(temp2);
+            traces[i] = {x: genreArray[i].name.split(', ')[1], y: temp2, name: genreArray[i].name.split(',')[1], type: "bar"};
+        }
 
-        var trace1 = {
-        x: "comedy",
-        y: comedyy,
-        type: "bar"
+        var layout = {
+          title: "Movies genres vs " + ystring,
         };
-        var trace2 = {
-        x: "action",
-        y: actiony,
-        type: "bar"
-        };
-        var trace3 = {
-        x: "adventure",
-        y: adventurey,
-        type: "bar"
-        };
-        var trace4 = {
-        x: "drama",
-        y: dramay,
-        type: "bar"
-        };
-        var trace5 = {
-        x: "fantasy",
-        y: fantasyy,
-        type: "bar"
-        };
-        var trace6 = {
-        x: "horror",
-        y: horrory,
-        type: "bar"
-        };
-        var trace7 = {
-        x: "romance",
-        y: romancey,
-        type: "bar"
-        };
-        var trace8 = {
-        x: "mystery",
-        y: mysteryy,
-        type: "bar"
-        };
-        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8];
-        var graphOptions = {filename: "basic-bar3", fileopt: "overwrite"};
+        
+        var data = [traces[0], traces[1], traces[2], traces[3], traces[4], traces[5], traces[6], traces[7], traces[8], traces[9]];
+
     } else {
+        let xvalue = newArray.map(function(item){return item[xstring];});
+        let yvalue = newArray.map(function(item){return item[ystring];});
+
         var trace = {
         x: xvalue,
         y: yvalue,
@@ -326,9 +352,23 @@ function makeAnalytics(graphObj){
         type: "scatter"
         };
         var data = [trace];
-        var graphOptions = {layout: layout, filename: "basic-bar3", fileopt: "overwrite"};
+
+        var layout = {
+          title: "Movie " + xstring + " vs " + ystring,
+          xaxis: {
+            title: xstring,
+            showline: false,
+            showgrid: false
+          },
+          yaxis: {
+            title: ystring,
+            showline: false,
+            showgrid: false
+          }
+        };
     }
     
+    var graphOptions = {layout: layout, filename: "basic-bar3", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     });
