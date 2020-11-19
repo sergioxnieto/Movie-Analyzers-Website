@@ -134,7 +134,10 @@ function loadCsv() {
     });
     dataObjects.pop();
     dataObj = dataObjects;    
-     
+    
+    // Clear the array in case of subsequent attempts
+    newArray = [];
+
     dataObj.forEach((v, i) => {
         const val = (typeof v === 'object') ? Object.assign({}, v) : v;
         newArray.push(val);
@@ -182,6 +185,9 @@ function loadModifiedCsv() {
     });
     dataObjects.pop();
     dataObj = dataObjects;     
+
+    // Clear the array in case of subsequent attempts
+    newArray = [];
 
     dataObj.forEach((v, i) => {
         const val = (typeof v === 'object') ? Object.assign({}, v) : v;
