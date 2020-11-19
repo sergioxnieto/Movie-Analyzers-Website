@@ -209,7 +209,7 @@ function loadModifiedCsv() {
     }
 
     genreArray = bubbleSort(countRepeat('genres', newArray));
-    console.log(dataObj[0]);
+    // console.log(dataObj[0]);
     return dataObj;
 }
 
