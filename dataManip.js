@@ -1,9 +1,11 @@
 var plotly = require('./node_modules/plotly')('ymwang0101','6XBXlcsQc81iEbEslo44');
 const fs = require('fs');
+const {performance} = require('perf_hooks');
 var dataObj = [];
 var newArray = [];
 var prodArray;
 var genreArray;
+var graphFlag = true;
 
 function parse(row){
     var insideQuote = false,                                             
@@ -98,6 +100,13 @@ function searchForMovie(movieName) {
 
 function addAMovie(movieObj) {
     dataObj.push(movieObj);
+    if(Array.isArray(newArray) && newArray.length) {
+        temp1 = parseBracket(movieObj.production_companies.replace(/[\[\]']+|name: |id: /g, ''));
+        movieObj.production_companies = temp1;
+        temp2 = parseBracket(movieObj.genres.replace(/[\[\]']+|name: |id: /g, ''));
+        movieObj.genres = temp2;
+        newArray.push(movieObj);
+    }
 }
 
 function removeMovieEntry(movieId) {
@@ -107,8 +116,11 @@ function removeMovieEntry(movieId) {
             break;
         }    
     }
-
     dataObj.splice(index, 1);
+
+    if(Array.isArray(newArray) && newArray.length) {
+        newArray.splice(index, 1);
+    }
 }
 
 function loadCsv() {
@@ -133,31 +145,10 @@ function loadCsv() {
         return dataObject;
     });
     dataObjects.pop();
-    dataObj = dataObjects;    
-    
-    // Clear the array in case of subsequent attempts
-    newArray = [];
+    dataObj = dataObjects;
 
-    dataObj.forEach((v, i) => {
-        const val = (typeof v === 'object') ? Object.assign({}, v) : v;
-        newArray.push(val);
-    });
-    
-    newArray = newArray.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
+    dataObj = dataObj.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
         && movie.runtime > 0 && movie.revenue > 0);
-
-    for(var i = 0; i < newArray.length; i++) {
-        let result = parseBracket(newArray[i].production_companies.replace(/[\[\]']+|name: |id: /g, ''));
-        newArray[i].production_companies = result;
-    }
-    prodArray = bubbleSort(countRepeat('production_companies', newArray));
-
-    for(var i = 0; i < newArray.length; i++) {
-        let result = parseBracket(newArray[i].genres.replace(/[\[\]']+|name: |id: /g, ''));
-        newArray[i].genres = result;
-    }
-
-    genreArray = bubbleSort(countRepeat('genres', newArray));
 
     return dataObj;
 }
@@ -184,33 +175,31 @@ function loadModifiedCsv() {
         return dataObject;
     });
     dataObjects.pop();
-    dataObj = dataObjects;     
+    dataObj = dataObjects;
 
-    // Clear the array in case of subsequent attempts
+    return dataObj;   
+}
+
+function parseCSV() {
+
     newArray = [];
 
     dataObj.forEach((v, i) => {
         const val = (typeof v === 'object') ? Object.assign({}, v) : v;
         newArray.push(val);
     });
-    
-    newArray = newArray.filter(movie => movie.budget > 0 && movie.vote_average > 0 && movie.popularity > 0
-        && movie.runtime > 0 && movie.revenue > 0);
 
     for(var i = 0; i < newArray.length; i++) {
         let result = parseBracket(newArray[i].production_companies.replace(/[\[\]']+|name: |id: /g, ''));
         newArray[i].production_companies = result;
     }
-    prodArray = bubbleSort(countRepeat('production_companies', newArray));
 
     for(var i = 0; i < newArray.length; i++) {
         let result = parseBracket(newArray[i].genres.replace(/[\[\]']+|name: |id: /g, ''));
         newArray[i].genres = result;
     }
 
-    genreArray = bubbleSort(countRepeat('genres', newArray));
-    // console.log(dataObj[0]);
-    return dataObj;
+    return newArray;
 }
 
 function reverseParse() {
@@ -298,6 +287,8 @@ function bubbleSort(arr){
 
 function makeAnalytics(graphObj){
 
+    let start = performance.now();
+
     let xstring = graphObj.xvalue;
     let ystring = graphObj.yvalue;
 
@@ -305,6 +296,13 @@ function makeAnalytics(graphObj){
     var temp;
 
     if (xstring === "production_companies" || ystring === "production_companies") {
+
+        if(graphFlag) {
+            parseCSV();
+            graphFlag = false;
+        }
+
+        prodArray = bubbleSort(countRepeat('production_companies', newArray));
 
         let bad = 'Metro-Goldwyn-Mayer';
         for(let i = 0; i < 10; i++) {
@@ -326,6 +324,13 @@ function makeAnalytics(graphObj){
         var data = [traces[0], traces[1], traces[2], traces[3], traces[4], traces[5], traces[6], traces[7], traces[8], traces[9]];
 
     } else if (xstring === "genres" || ystring === "genres") {
+
+        if(graphFlag) {
+            parseCSV();
+            graphFlag = false;
+        }
+
+        genreArray = bubbleSort(countRepeat('genres', newArray));
 
         for(i = 0; i < 10; i++) {
             console.log(genreArray[i]);
@@ -370,8 +375,10 @@ function makeAnalytics(graphObj){
     
     var graphOptions = {layout: layout, filename: "basic-bar3", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
-        console.log(msg);
+        //console.log(msg);
     });
+    let end = performance.now();
+    console.log(`Call to makeAnalytics took ${end - start} milliseconds.`);
 }
 
 exports.searchForMovie = searchForMovie;
