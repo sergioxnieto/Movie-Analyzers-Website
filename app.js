@@ -1,6 +1,7 @@
 // Express import and initialization
 const express = require('express');
 const app = express();
+const dataBase = require('./dataManip');
 
 // Port to open localhost:{PORT}
 const PORT = 3000;
@@ -18,9 +19,10 @@ app.use(express.json());
 // Insert the routes which the API will be able to handle
 app.use('/movies', movieRouter);
 
-
 // This is what keeps the site listening for events
 app.listen(PORT, () => {
     console.log('App running...');
+    console.log('Loading data onto memory...')
+    dataBase.loadCsv();
     console.log(`Listening on ${PORT}`);
 });
