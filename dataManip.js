@@ -347,8 +347,8 @@ function makeAnalytics(graphObj){
         var data = [traces[0], traces[1], traces[2], traces[3], traces[4], traces[5], traces[6], traces[7], traces[8], traces[9]];
 
     } else {
-        let xvalue = newArray.map(function(item){return item[xstring];});
-        let yvalue = newArray.map(function(item){return item[ystring];});
+        let xvalue = dataObj.map(function(item){return item[xstring];});
+        let yvalue = dataObj.map(function(item){return item[ystring];});
 
         var trace = {
         x: xvalue,
@@ -373,7 +373,7 @@ function makeAnalytics(graphObj){
         };
     }
     
-    var graphOptions = {layout: layout, filename: "basic-bar3", fileopt: "overwrite"};
+    var graphOptions = {layout: layout, filename: "analytics", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         //console.log(msg);
     });
