@@ -46,7 +46,7 @@ router.post('/add-movie',(req, res, next) => {
 
 router.put('/edit-movie',(req, res, next) => {
     console.log('Request: update a movie entry');
-    dataBase.removeMovieEntry(req.body.id_to_edit);
+    dataBase.removeMovieEntry(req.body.id);
     dataBase.addAMovie(req.body);
     res.json({success: true}); // Homepage knows when the process is done
     console.log('Done: updated movie entry\n');
