@@ -54,8 +54,10 @@ const addNewMovie = () => {
         id: btn.form.id.value,
         runtime: btn.form.runtime.value,
         budget: btn.form.budget.value,
-        original_language: btn.form.original_language.value,
-        popularity: btn.form.popularity.value
+        popularity: btn.form.popularity.value,
+		vote_average: btn.form.vote_average.value,
+		production_companies: btn.form.production_companies.value,
+		genres: btn.form.genres.value
     })
     .then((response) => {
         console.log(response);
@@ -86,8 +88,10 @@ const editMovieEntry = () => {
         id: btn2.form.id.value,
         runtime: btn2.form.runtime.value,
         budget: btn2.form.budget.value,
-        original_language: btn2.form.original_language.value,
-        popularity: btn2.form.popularity.value
+        popularity: btn2.form.popularity.value,
+		vote_average: btn2.form.vote_average.value,
+		production_companies: btn2.form.production_companies.value,
+		genres: btn2.form.genres.value
     })
     .then((response) => {
         console.log(response);

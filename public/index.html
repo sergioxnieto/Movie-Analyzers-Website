@@ -14,8 +14,7 @@
 
 <body>
     <nav class="navbar sticky-top navbar-expand-sm navbar-dark trn" id="top-of-page">
-        <a class="navbar-brand" href="index.html">THE MOVIE ANALYZERS</a>
-        
+        <a class="navbar-brand" href="index.html">MOVIE ANALYZERS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -47,22 +46,13 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-1 ">
-            <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" 
-            title="Save the modified dataset" id="saveButton">Save Dataset</button>
-        </div>
-		<div class="col-xs-1 ">
-            <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" 
-            title="Load the original, unmodified dataset" id="loadButton">Load Original</button>
-        </div>
-        <div class="col-xs-1">
-            <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom"
-            title="Load the modified dataset" id="loadModifiedButton">Load Modified</button>
-        </div>
     </nav>
     <div class="container-fluid mt-3">
         <div class="row justify-content-end">
             <div class="btn-group" role="group">
+                <button type="button" class="btn btn-dark" id="saveButton">Save Dataset</button>
+                <button type="button" class="btn btn-dark" id="loadButton">Load Original</button>
+                <button type="button" class="btn btn-dark" id="loadModifiedButton">Load Modified</button>
             </div>
         </div>
     </div>
@@ -142,14 +132,24 @@
                                 value=""></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="Entry" class="col-form-label">Language:</label>
-                            <textarea class="form-control" id="newMovieLanguage" name="original_language"
-                                placeholder="Language here" value=""></textarea>
-                        </div>
-                        <div class="form-group">
                             <label for="Entry" class="col-form-label">Popularity:</label>
                             <textarea class="form-control" id="newMoviePopularity" name="popularity"
                                 placeholder="Popularity here" value=""></textarea>
+                        </div>
+						<div class="form-group">
+                            <label for="Entry" class="col-form-label">Vote Average:</label>
+                            <textarea class="form-control" id="newMovieVote" name="vote_average"
+                                placeholder="Vote average here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Company:</label>
+                            <textarea class="form-control" id="newMovieCompany" name="production_companies"
+                                placeholder="Production company here" value=""></textarea>
+                        </div>
+						<div class="form-group">
+                            <label for="Entry" class="col-form-label">Genre:</label>
+                            <textarea class="form-control" id="newMovieGenre" name="genres"
+                                placeholder="Genre here" value=""></textarea>
                         </div>
                     </form>
                 </div>
@@ -196,14 +196,24 @@
                                 value=""></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="Entry" class="col-form-label">Language:</label>
-                            <textarea class="form-control" id="editMovieLanguage" name="original_language"
-                                placeholder="Language here" value=""></textarea>
-                        </div>
-                        <div class="form-group">
                             <label for="Entry" class="col-form-label">Popularity:</label>
                             <textarea class="form-control" id="editMoviePopularity" name="popularity"
                                 placeholder="Popularity here" value=""></textarea>
+                        </div>
+						<div class="form-group">
+                            <label for="Entry" class="col-form-label">Vote Average:</label>
+                            <textarea class="form-control" id="editMovieVote" name="vote_average"
+                                placeholder="Vote average here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Company:</label>
+                            <textarea class="form-control" id="editMovieCompany" name="production_companies"
+                                placeholder="Production company here" value=""></textarea>
+                        </div>
+						<div class="form-group">
+                            <label for="Entry" class="col-form-label">Genre:</label>
+                            <textarea class="form-control" id="editMovieGenre" name="genres"
+                                placeholder="Genre here" value=""></textarea>
                         </div>
                     </form>
                 </div>
@@ -215,11 +225,8 @@
             </div>
         </div>
     </div>
-    
-
     <!-- jQuery and JS bundle-->
-    <!-- Enter key functionality -->
-    <script>
+	<script>
         var input = document.getElementById("search");
         input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
@@ -236,12 +243,6 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="javascripts/main.js"></script>
-    <script src="javascripts/temp.js"></script>
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();   
-        });
-        </script>
 </body>
 
 </html>

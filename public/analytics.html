@@ -13,7 +13,7 @@
 
 <body>
     <nav class="navbar sticky-top navbar-expand-sm navbar-dark trn" id="top-of-page">
-        <a class="navbar-brand" href="index.html">THE MOVIE ANALYZERS</a>
+        <a class="navbar-brand" href="index.html">MOVIE ANALYZERS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,22 +45,24 @@
                 </li>
             </ul>
         </div>
-		<div class="col-xs-1 ">
-            <button type="button" class="btn btn-dark" id="analyticButton" data-toggle="modal"
-                data-target="#analyticModalCenter" data-toggle="tooltip" data-placement="bottom" 
-                title="Modify the parameters to analyze">
-                Select Inputs
-            </button>
-        </div>
-		<div class="col-xs-1 ">
-            <button type="button" class="btn btn-dark" id="refreshButton" onclick="reload()" data-toggle="tooltip" data-placement="bottom" 
-            title="Generate the plot with the selected inputs">
-                Generate
-            </button>
-        </div>
-
-
     </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <div class="col-xs-1 mx-2">
+                <button type="button" class="btn btn-dark" id="analyticButton" data-toggle="modal"
+                    data-target="#analyticModalCenter">
+                    Select Inputs
+                </button>
+            </div>
+            <div class="col-xs-1 mr-2">
+                <button type="button" class="btn btn-dark" id="refreshButton" onclick="reload()">
+                    Generate
+                </button>
+            </div>
+        </div>
+    </div>
+
 
 	<div class="container-fluid mt-4">
         <div class="row justify-content-center">
@@ -133,48 +135,6 @@
         </div>
     </div>
 	
-	<script>
-        function budget1() {
-            document.getElementById("analyticField1").value = "budget";
-        }
-        function vote_average1() {
-            document.getElementById("analyticField1").value = "vote_average";
-        }
-        function popularity1() {
-            document.getElementById("analyticField1").value = "popularity";
-        }
-        function runtime1() {
-            document.getElementById("analyticField1").value = "runtime";
-        }
-        function revenue1() {
-            document.getElementById("analyticField1").value = "revenue";
-        }
-        function production_companies1() {
-            document.getElementById("analyticField1").value = "production_companies";
-        }
-        function genre1() {
-            document.getElementById("analyticField1").value = "genres";
-        }
-        function budget2() {
-            document.getElementById("analyticField2").value = "budget";
-        }
-        function vote_average2() {
-            document.getElementById("analyticField2").value = "vote_average";
-        }
-        function popularity2() {
-            document.getElementById("analyticField2").value = "popularity";
-        }
-        function runtime2() {
-            document.getElementById("analyticField2").value = "runtime";
-        }
-        function revenue2() {
-            document.getElementById("analyticField2").value = "revenue";
-        }
-		function reload() {
-			 document.getElementById('frame').src = document.getElementById('frame').src;
-		}
-    </script>
-
     <!-- jQuery and JS bundle-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -183,12 +143,7 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();   
-        });
-        </script>
+	<script src="javascripts/analytics.js"></script>
 </body>
 
 </html>
