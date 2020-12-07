@@ -142,21 +142,6 @@ const renderResults = (movieResults) => {
     divContainer.appendChild(table);
 }
 
-const makeGraph = () => {
-    const btn1 = document.getElementById('submitAnalytic');
-
-    axios.put('/movies/make-graph', {
-        xvalue: btn1.form.analyticsField1.value,
-        yvalue: btn1.form.analyticsField2.value
-    })
-    .then((response) => {
-        console.log(response);
-    }, (error) => {
-        console.log(response);
-    });
-}
-
-
 function editRow(oButton) {
     var movie_Id = oButton.parentNode.previousSibling.innerHTML;
     var movie_Title = oButton.parentNode.previousSibling.previousSibling.innerHTML;
@@ -183,5 +168,4 @@ document.getElementById('submitMovieQuery').addEventListener('click', getMovie, 
 document.getElementById('loadButton').addEventListener('click', loadOriginalDataset, true);
 document.getElementById('loadModifiedButton').addEventListener('click', loadModifiedDataset, true);
 document.getElementById('saveButton').addEventListener('click', saveDataset, true);
-document.getElementById('removeMovieEntryBtn').addEventListener('click', deleteMovieEntry, true);
 document.getElementById('submitEditMovieForm').addEventListener('click', editMovieEntry, true);

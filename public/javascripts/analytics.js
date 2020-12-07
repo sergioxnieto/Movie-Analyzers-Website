@@ -1,3 +1,18 @@
+const makeGraph = () => {
+    const btn1 = document.getElementById('submitAnalytic');
+
+    axios.put('/movies/make-graph', {
+        xvalue: btn1.form.analyticsField1.value,
+        yvalue: btn1.form.analyticsField2.value
+    })
+    .then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.log(error);
+    });
+}
+
+
 function budget1() {
     document.getElementById("analyticField1").value = "budget";
 }
@@ -34,3 +49,9 @@ function runtime2() {
 function revenue2() {
     document.getElementById("analyticField2").value = "revenue";
 }
+function reload() {
+     document.getElementById('frame').src = document.getElementById('frame').src;
+}
+
+
+document.getElementById('submitAnalytic').addEventListener('click', makeGraph, true);
