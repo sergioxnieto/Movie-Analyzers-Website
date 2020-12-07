@@ -13,8 +13,9 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="top-of-page">
-        <a class="navbar-brand" href="index.html">MOVIE ANALYZERS</a>
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark trn" id="top-of-page">
+        <a class="navbar-brand" href="index.html">THE MOVIE ANALYZERS</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,13 +47,25 @@
                 </li>
             </ul>
         </div>
+        <div class="col-xs-1 ">
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" 
+            title="Save the modified dataset" id="saveButton">Save Dataset</button>
+        </div>
+		<div class="col-xs-1 ">
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" 
+            title="Load the original, unmodified dataset" id="loadButton">Load Original</button>
+        </div>
+        <div class="col-xs-1">
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+            title="Load the modified dataset" id="loadModifiedButton">Load Modified</button>
+        </div>
     </nav>
     <div class="container-fluid mt-3">
         <div class="row justify-content-end">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="saveButton">Save Dataset</button>
-                <button type="button" class="btn btn-primary" id="loadButton">Load Original</button>
-                <button type="button" class="btn btn-primary" id="loadModifiedButton">Load Modified</button>
+
+                
+                
             </div>
         </div>
     </div>
@@ -205,7 +218,19 @@
             </div>
         </div>
     </div>
+    
+
     <!-- jQuery and JS bundle-->
+    <!-- Enter key functionality -->
+    <script>
+        var input = document.getElementById("search");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("submitMovieQuery").click();
+          }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -215,6 +240,11 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/temp.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();   
+        });
+        </script>
 </body>
 
 </html>
