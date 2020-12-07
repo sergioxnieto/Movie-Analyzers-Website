@@ -1,102 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Movie Analysis</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Movie Analyzers</a>
-          </div>
-      
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-              <li><a href="analytics.html">Analytics</a></li>
+<body>
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="top-of-page">
+        <a class="navbar-brand" href="index.html">MOVIE ANALYZERS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">
+                        <span>
+                            <svg width="1em" height="1em" viewBox="0 0 20 20" class="bi bi-house-door"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
+                                <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                            </svg>
+                        </span>Home<span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="analytics.html">
+                        <span>
+                            <svg width="1em" height="1em" viewBox="0 0 20 20" class="bi bi-bar-chart-line"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
+                            </svg>
+                        </span> Analytics
+                    </a>
+                </li>
             </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-	<div class="row">
-		<div class="col-xs-1 col-xs-offset-9">
-			<button type="button" class="btn btn-primary" id="saveButton">
-				Save dataset
-			</button>
-		</div>
-		<div class="col-xs-1">
-			<button type="button" class="btn btn-primary" id="loadButton">
-				Load Original
-			</button>
-		</div>
-		<div class="col-xs-1">
-			<button type="button" class="btn btn-primary" id="loadModifiedButton">
-				Load Modified
-			</button>
-		</div>
-	</div>
-    <div class="container">
-      <div class="row">    
-        <div class="col-xs-8 col-xs-offset-2">
-          <div class="input-group">
-            <div class="input-group-btn search-panel">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <span id="search_concept">All</span> <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu scrollable-dropdown" role="menu">
-                <li><a href="#">Title</a></li>
-                <li><a href="#">Movie Id</a></li>
-                <li><a href="#">Runtime</a></li>
-                <li><a href="#">Revenue</a></li>
-                <li><a href="#">Popularity</a></li>
-                <li><a href="#">Language</a></li>
-              </ul>
-            </div>
-            <input type="hidden" name="search_param" value="all" id="search_param">
-            <input type="text" class="form-control" name="x" id="search" placeholder="Search">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button" id="submitMovieQuery">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-          </div>
         </div>
-      </div>
+    </nav>
+    <div class="container-fluid mt-3">
+        <div class="row justify-content-end">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="saveButton">Save Dataset</button>
+                <button type="button" class="btn btn-primary" id="loadButton">Load Original</button>
+                <button type="button" class="btn btn-primary" id="loadModifiedButton">Load Modified</button>
+            </div>
+        </div>
     </div>
-	<div class="row"> "  " </div>
-	<div class="row">
-        <div class="col-xs-1 col-xs-offset-4">
-			<button type="button" class="btn btn-primary" id="addButton" data-toggle="modal" data-target="#addModalCenter">
-				Add a Movie
-			</button>
-		</div>
-		<div class="col-xs-1 ">
-			<button type="button" class="btn btn-primary" id="editIDButton" data-toggle="modal" data-target="#editIDModalCenter">
-				Edit a Movie
-			</button>
-		</div>
-		<div class="col-xs-1 ">
-			<button type="button" class="btn btn-primary" id="removeButton" data-toggle="modal" data-target="#removeModalCenter">
-				Remove a Movie
-			</button>
-		</div>
-		<div class="col-xs-1 ">
-			<button type="button" class="btn btn-primary" id="analyticButton" data-toggle="modal" data-target="#analyticModalCenter">
-				Analytics
-			</button>
-		</div>
-	</div>
-    <div class="container">
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="col-8 input-group">
+                <div class="input-group-prepend">
+                    <select class="custom-select" id="category_search">
+                        <option value="all">All</option>
+                        <option value="title">Title</option>
+                        <option value="case">Case</option>
+                        <option value="year">Year</option>
+                        <option value="genre">Genre</option>
+                        <option value="keyword">Keyword</option>
+                        <option value="language">Language</option>
+                    </select>
+                </div>
+                <input type="text" class="form-control" id="search" placeholder="Search...">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-secondary" id="submitMovieQuery">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd"
+                                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <div class="col-xs-1 col-xs-offset-4">
+                <button type="button" class="btn btn-primary" id="addButton" data-toggle="modal"
+                    data-target="#addModalCenter">
+                    Add a Movie
+                </button>
+            </div>
+            <div class="col-xs-1 mx-2">
+                <button type="button" class="btn btn-primary" id="editIDButton" data-toggle="modal"
+                    data-target="#editIDModalCenter">
+                    Edit a Movie
+                </button>
+            </div>
+            <div class="col-xs-1 mr-2">
+                <button type="button" class="btn btn-primary" id="removeButton" data-toggle="modal"
+                    data-target="#removeModalCenter">
+                    Remove a Movie
+                </button>
+            </div>
+            <div class="col-xs-1 ">
+                <button type="button" class="btn btn-primary" id="analyticButton" data-toggle="modal"
+                    data-target="#analyticModalCenter">
+                    Analytics
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-2">
         <div class="row">
-            <div class="col-xs-8 col-xs-offset-2">
+            <div class="col">
                 <div id="responseField">
                 </div>
             </div>
@@ -104,248 +123,283 @@
     </div>
 
     <!-- Pop-up to add movie entry -->
-	<div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="addModalLongTitle">Add a Movie</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-              <form id="newMovieForm">
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Title:</label>
-                    <textarea class="form-control" id="newMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+    <div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLongTitle">Add a Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Id:</label>
-                    <textarea class="form-control" id="newMovieId" name="id" placeholder="Id here" value=""></textarea>
+                <div class="modal-body">
+                    <form id="newMovieForm">
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Title:</label>
+                            <textarea class="form-control" id="newMovieTitle" name="title" placeholder="Title here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Id:</label>
+                            <textarea class="form-control" id="newMovieId" name="id" placeholder="Id here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Runtime:</label>
+                            <textarea class="form-control" id="newMovieRuntime" name="runtime"
+                                placeholder="Runtime here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Budget:</label>
+                            <textarea class="form-control" id="newMovieBudget" name="budget" placeholder="Budget here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Language:</label>
+                            <textarea class="form-control" id="newMovieLanguage" name="original_language"
+                                placeholder="Language here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Popularity:</label>
+                            <textarea class="form-control" id="newMoviePopularity" name="popularity"
+                                placeholder="Popularity here" value=""></textarea>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Runtime:</label>
-                    <textarea class="form-control" id="newMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" form="newMovieForm"
+                        id="submitNewMovieForm">Submit</button>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Budget:</label>
-                    <textarea class="form-control" id="newMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Language:</label>
-                    <textarea class="form-control" id="newMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Popularity:</label>
-                    <textarea class="form-control" id="newMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
-                </div>
-              </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="newMovieForm" id="submitNewMovieForm">Submit</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	
-	<!-- Popup to remove movie entry -->
-	<div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="removeModalLongTitle">Remove a Movie</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-              <form id="deleteMovieForm">
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Enter an Id:</label>
-                    <textarea class="form-control" id="removeEntry" name="movie_id" placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
-                </div>
-              </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" data-dismiss="modal" id="removeMovieEntryBtn" form="deleteMovieForm">Submit</button>
-		  </div>
-		</div>
-	  </div>
+            </div>
+        </div>
     </div>
-	
-	<!-- Popup to request movie id to edit -->
-	<div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="editIDModalLongTitle">Edit a Movie</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-            <form id="movieIdToEdit">
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Enter an Id:</label>
-                    <textarea class="form-control" id="editIDEntry" name="id" placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
+
+    <!-- Popup to remove movie entry -->
+    <div class="modal fade" id="removeModalCenter" tabindex="-1" role="dialog" aria-labelledby="removeModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeModalLongTitle">Remove a Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </form>    
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" id="movieIdToEditSubmit" form="movieIdToEdit" data-toggle="modal" data-target="#editDataModalCenter" data-dismiss= "modal">Submit</button>
-		  </div>
-		</div>
-	  </div>
+                <div class="modal-body">
+                    <form id="deleteMovieForm">
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Enter an Id:</label>
+                            <textarea class="form-control" id="removeEntry" name="movie_id"
+                                placeholder="Enter the id of the movie you wish to remove" value=""></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="removeMovieEntryBtn"
+                        form="deleteMovieForm">Submit</button>
+                </div>
+            </div>
+        </div>
     </div>
-	
-	<!-- Follows up the menu to edit. Fill will content that will be replaced -->
-	<div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="editDataModalLongTitle">Edit a Movie</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-              <form id="editMovieForm">
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Title:</label>
-                    <textarea class="form-control" id="editMovieTitle" name="title" placeholder="Title here" value=""></textarea>
+
+    <!-- Popup to request movie id to edit -->
+    <div class="modal fade" id="editIDModalCenter" tabindex="-1" role="dialog" aria-labelledby="editIDModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editIDModalLongTitle">Edit a Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Id:</label>
-                    <textarea class="form-control" id="editMovieId" name="id" placeholder="Id here" value=""></textarea>
+                <div class="modal-body">
+                    <form id="movieIdToEdit">
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Enter an Id:</label>
+                            <textarea class="form-control" id="editIDEntry" name="id"
+                                placeholder="Enter the id of the movie you wish to edit" value=""></textarea>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Runtime:</label>
-                    <textarea class="form-control" id="editMovieRuntime" name="runtime" placeholder="Runtime here" value=""></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="movieIdToEditSubmit" form="movieIdToEdit"
+                        data-toggle="modal" data-target="#editDataModalCenter" data-dismiss="modal">Submit</button>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Budget:</label>
-                    <textarea class="form-control" id="editMovieBudget" name="budget" placeholder="Budget here" value=""></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Follows up the menu to edit. Fill will content that will be replaced -->
+    <div class="modal fade" id="editDataModalCenter" tabindex="-1" role="dialog" aria-labelledby="editDataModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDataModalLongTitle">Edit a Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Language:</label>
-                    <textarea class="form-control" id="editMovieLanguage" name="original_language" placeholder="Language here" value=""></textarea>
+                <div class="modal-body">
+                    <form id="editMovieForm">
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Title:</label>
+                            <textarea class="form-control" id="editMovieTitle" name="title" placeholder="Title here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Id:</label>
+                            <textarea class="form-control" id="editMovieId" name="id" placeholder="Id here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Runtime:</label>
+                            <textarea class="form-control" id="editMovieRuntime" name="runtime"
+                                placeholder="Runtime here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Budget:</label>
+                            <textarea class="form-control" id="editMovieBudget" name="budget" placeholder="Budget here"
+                                value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Language:</label>
+                            <textarea class="form-control" id="editMovieLanguage" name="original_language"
+                                placeholder="Language here" value=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Popularity:</label>
+                            <textarea class="form-control" id="editMoviePopularity" name="popularity"
+                                placeholder="Popularity here" value=""></textarea>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Popularity:</label>
-                    <textarea class="form-control" id="editMoviePopularity" name="popularity" placeholder="Popularity here" value=""></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" form="editMovieForm"
+                        id="submitEditMovieForm">Submit</button>
                 </div>
-              </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="editMovieForm" id="submitEditMovieForm">Submit</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	
-	<!-- Pop-up to get analytics -->
-	<div class="modal fade" id="analyticModalCenter" tabindex="-1" role="dialog" aria-labelledby="analyticModal" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="analyticModalLongTitle">Analytics</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-              <form id="analyticForm">
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Field 1</label>
-                    <textarea class="form-control" id="analyticField1" name="analyticsField1" placeholder="X axis value here" value=""></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up to get analytics -->
+    <div class="modal fade" id="analyticModalCenter" tabindex="-1" role="dialog" aria-labelledby="analyticModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="analyticModalLongTitle">Analytics</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-				<div class="dropdown">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Select a Field
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<button class="dropdown-item" type="button" onclick="budget1()">budget</button>
-					<button class="dropdown-item" type="button" onclick="vote_average1()">vote_average</button>
-					<button class="dropdown-item" type="button" onclick="popularity1()">popularity</button>
-					<button class="dropdown-item" type="button" onclick="runtime1()">runtime</button>
-					<button class="dropdown-item" type="button" onclick="revenue1()">revenue</button>
-					<button class="dropdown-item" type="button" onclick="production_companies1()">production_companies</button>
-					<button class="dropdown-item" type="button" onclick="genre1()">genres</button>
-				  </div>
-				</div>
-                <div class="form-group">
-                    <label for="Entry" class="col-form-label">Field 2</label>
-                    <textarea class="form-control" id="analyticField2" name="analyticsField2" placeholder="Y axis value here" value=""></textarea>
+                <div class="modal-body">
+                    <form id="analyticForm">
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Field 1</label>
+                            <textarea class="form-control" id="analyticField1" name="analyticsField1"
+                                placeholder="X axis value here" value=""></textarea>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select a Field
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <button class="dropdown-item" type="button" onclick="budget1()">budget</button>
+                                <button class="dropdown-item" type="button"
+                                    onclick="vote_average1()">vote_average</button>
+                                <button class="dropdown-item" type="button" onclick="popularity1()">popularity</button>
+                                <button class="dropdown-item" type="button" onclick="runtime1()">runtime</button>
+                                <button class="dropdown-item" type="button" onclick="revenue1()">revenue</button>
+                                <button class="dropdown-item" type="button"
+                                    onclick="production_companies1()">production_companies</button>
+                                <button class="dropdown-item" type="button" onclick="genre1()">genres</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Entry" class="col-form-label">Field 2</label>
+                            <textarea class="form-control" id="analyticField2" name="analyticsField2"
+                                placeholder="Y axis value here" value=""></textarea>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select a Field
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button" onclick="budget2()">budget</button>
+                                <button class="dropdown-item" type="button"
+                                    onclick="vote_average2()">vote_average</button>
+                                <button class="dropdown-item" type="button" onclick="popularity2()">popularity</button>
+                                <button class="dropdown-item" type="button" onclick="runtime2()">runtime</button>
+                                <button class="dropdown-item" type="button" onclick="revenue2()">revenue</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-				<div class="dropdown">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Select a Field
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					<button class="dropdown-item" type="button" onclick="budget2()">budget</button>
-					<button class="dropdown-item" type="button" onclick="vote_average2()">vote_average</button>
-					<button class="dropdown-item" type="button" onclick="popularity2()">popularity</button>
-					<button class="dropdown-item" type="button" onclick="runtime2()">runtime</button>
-					<button class="dropdown-item" type="button" onclick="revenue2()">revenue</button>
-				  </div>
-				</div>
-              </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" data-dismiss= "modal" form="analyticForm" id="submitAnalytic">Submit</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	
-	<script>
-		function budget1() {
-			document.getElementById("analyticField1").value = "budget";
-		}
-		function vote_average1() {
-			document.getElementById("analyticField1").value = "vote_average";
-		}
-		function popularity1() {
-			document.getElementById("analyticField1").value = "popularity";
-		}
-		function runtime1() {
-			document.getElementById("analyticField1").value = "runtime";
-		}
-		function revenue1() {
-			document.getElementById("analyticField1").value = "revenue";
-		}
-		function production_companies1() {
-			document.getElementById("analyticField1").value = "production_companies";
-		}
-		function genre1() {
-			document.getElementById("analyticField1").value = "genres";
-		}
-		function budget2() {
-			document.getElementById("analyticField2").value = "budget";
-		}
-		function vote_average2() {
-			document.getElementById("analyticField2").value = "vote_average";
-		}
-		function popularity2() {
-			document.getElementById("analyticField2").value = "popularity";
-		}
-		function runtime2() {
-			document.getElementById("analyticField2").value = "runtime";
-		}
-		function revenue2() {
-			document.getElementById("analyticField2").value = "revenue";
-		}
-	</script>
-	
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" form="analyticForm"
+                        id="submitAnalytic">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function budget1() {
+            document.getElementById("analyticField1").value = "budget";
+        }
+        function vote_average1() {
+            document.getElementById("analyticField1").value = "vote_average";
+        }
+        function popularity1() {
+            document.getElementById("analyticField1").value = "popularity";
+        }
+        function runtime1() {
+            document.getElementById("analyticField1").value = "runtime";
+        }
+        function revenue1() {
+            document.getElementById("analyticField1").value = "revenue";
+        }
+        function production_companies1() {
+            document.getElementById("analyticField1").value = "production_companies";
+        }
+        function genre1() {
+            document.getElementById("analyticField1").value = "genres";
+        }
+        function budget2() {
+            document.getElementById("analyticField2").value = "budget";
+        }
+        function vote_average2() {
+            document.getElementById("analyticField2").value = "vote_average";
+        }
+        function popularity2() {
+            document.getElementById("analyticField2").value = "popularity";
+        }
+        function runtime2() {
+            document.getElementById("analyticField2").value = "runtime";
+        }
+        function revenue2() {
+            document.getElementById("analyticField2").value = "revenue";
+        }
+    </script>
     <!-- jQuery and JS bundle-->
-    <script src="javascripts/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </body>
+    <script src="javascripts/main.js"></script>
+</body>
+
 </html>
