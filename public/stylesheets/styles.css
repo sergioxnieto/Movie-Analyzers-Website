@@ -1,7 +1,13 @@
 body,html {
-    background-color: gray !important;
+    background: url("../curtains_2.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-
+.trn  {
+    background-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+}
 #responseField {
     margin-top: 25px;
 }

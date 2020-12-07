@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="top-of-page">
-        <a class="navbar-brand" href="index.html">MOVIE ANALYZERS</a>
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark trn" id="top-of-page">
+        <a class="navbar-brand" href="index.html">THE MOVIE ANALYZERS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,6 +45,21 @@
                 </li>
             </ul>
         </div>
+		<div class="col-xs-1 ">
+            <button type="button" class="btn btn-dark" id="analyticButton" data-toggle="modal"
+                data-target="#analyticModalCenter" data-toggle="tooltip" data-placement="bottom" 
+                title="Modify the parameters to analyze">
+                Select Inputs
+            </button>
+        </div>
+		<div class="col-xs-1 ">
+            <button type="button" class="btn btn-dark" id="refreshButton" onclick="reload()" data-toggle="tooltip" data-placement="bottom" 
+            title="Generate the plot with the selected inputs">
+                Generate
+            </button>
+        </div>
+
+
     </nav>
 
     <div class="container-fluid mt-4">
@@ -185,7 +200,12 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="javascripts/analytics.js"></script>
+    <script src="javascripts/main.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();   
+        });
+        </script>
 </body>
 
 </html>
