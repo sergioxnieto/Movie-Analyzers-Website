@@ -5,7 +5,7 @@ const dataBase = require('../dataManip');
 router.get('/search', (req, res, next) => {
     console.log('Request: search for movie ');
     console.log('Movie title: ' + req.query.title);
-    res.send(dataBase.searchForMovie(req.query.title));
+    res.send(dataBase.searchForMovie(req.query.title, req.query.category));
     console.log('Done: search completed\n');
 });
 

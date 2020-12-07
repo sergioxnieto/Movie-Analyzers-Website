@@ -59,43 +59,39 @@ function search(nameKey, myArray){
     let re = new RegExp(searchArray.join(" "), "i");
     let results = myArray.filter(movie =>
         re.test(movie.title) ||
-        re.test(movie.id) ||
-        re.test(movie.budget) ||
-        re.test(movie.original_language) ||
-        re.test(movie.popularity) ||
-        re.test(movie.runtime)
+        re.test(movie.cast) ||
+        re.test(movie.release_date) ||
+        re.test(movie.production_companies) ||
+        re.test(movie.genres) ||
+        re.test(movie.keywords)
     );
     return results;
 }
 
-function searchGenres(nameKey, myArray){
+function searchKey(nameKey, category, myArray){
     let searchArray = nameKey.trim().split(" ");
     let re = new RegExp(searchArray.join(" "), "i");
     let results = myArray.filter(movie =>
-        re.test(movie.genres)
+        re.test(movie[category])
     );
     return results;
 }
 
-function searchProd(nameKey, myArray){
-    let searchArray = nameKey.trim().split(" ");
-    let re = new RegExp(searchArray.join(" "), "i");
-    let results = myArray.filter(movie =>
-        re.test(movie.production_companies)
-    );
-    return results;
-}
-
-function searchForMovie(movieName) {
+function searchForMovie(movieName, movieCategory) {
     // console.log(dataObj);
-    var result = search(movieName, dataObj);  
-     // Array of objects that contain movieName
+    if(movieCategory == 'all') {
+        var result = search(movieName, dataObj);
         var titles = result.map(function(item) {
             return item.title;
-        }); // Array with the movie names parsed out
-
-        // Array of objects that match the title
+        });
         return result;
+    } else {
+        var result = searchKey(movieName, movieCategory, dataObj);
+        var titles = result.map(function(item) {
+            return item.title;
+        });
+        return result;
+    }
 }
 
 function addAMovie(movieObj) {
@@ -308,9 +304,9 @@ function makeAnalytics(graphObj){
         for(let i = 0; i < 10; i++) {
             console.log(prodArray[i]);
             if(prodArray[i].name.includes(bad)) {
-                temp = searchProd(prodArray[i].name.split(' ')[0], newArray);
+                temp = searchKey(prodArray[i].name.split(' ')[0], 'production_companies', newArray);
             } else {
-                temp = searchProd(prodArray[i].name.split(',')[0], newArray);
+                temp = searchKey(prodArray[i].name.split(',')[0], 'production_companies', newArray);
             }
             let temp2 = getAvg(temp.map(function(item){return item[ystring];}).map(Number));
             console.log(temp2);
@@ -334,7 +330,7 @@ function makeAnalytics(graphObj){
 
         for(i = 0; i < 10; i++) {
             console.log(genreArray[i]);
-            let temp = searchGenres(genreArray[i].name.split(',')[1], newArray);
+            let temp = searchKey(genreArray[i].name.split(',')[1], 'genres', newArray);
             let temp2 = getAvg(temp.map(function(item){return item[ystring];}).map(Number));
             console.log(temp2);
             traces[i] = {x: genreArray[i].name.split(', ')[1], y: temp2, name: genreArray[i].name.split(',')[1], type: "bar"};
@@ -375,7 +371,7 @@ function makeAnalytics(graphObj){
     
     var graphOptions = {layout: layout, filename: "analytics", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
-        //console.log(msg);
+        console.log(msg);
     });
     let end = performance.now();
     console.log(`Call to makeAnalytics took ${end - start} milliseconds.`);
